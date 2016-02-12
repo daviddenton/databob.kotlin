@@ -8,7 +8,17 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.6"
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.1'
+        classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:2.2.+'
     }
+}
+
+plugins {
+    id "com.jfrog.bintray" version "1.1"
+    id 'net.saliman.cobertura' version '2.2.5'
+    id 'com.github.kt3k.coveralls' version '2.0.1'
 }
 
 repositories {
@@ -16,12 +26,90 @@ repositories {
     jcenter()
 }
 
-apply plugin: 'java'
+    apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'cobertura'
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply plugin: 'provided-base'
+
+cobertura.coverageFormats = ['html', 'xml']
+
+archivesBaseName = 'databob.kotlin'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+version = project.hasProperty('releaseVersion') ? project.releaseVersion : 'LOCAL'
+group = 'io.github.daviddenton'
+
+description = 'Kill all builders!'
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testCompile 'junit:junit:4.12'}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'metrique'
+
+            pom.withXml {
+                asNode().appendNode('name', archivesBaseName)
+                asNode().appendNode('description', description)
+                asNode().appendNode('url', 'http://' + archivesBaseName + '.github.io')
+                asNode().appendNode('developers').appendNode('developer').
+                        appendNode('name', 'David Denton').parent().
+                        appendNode('email', 'mail@daviddenton.github.io')
+                asNode().appendNode('scm').
+                        appendNode('url', 'git@github.com:daviddenton/' + archivesBaseName + '.git').parent().
+                        appendNode('connection', 'scm:git:git@github.com:daviddenton/' + archivesBaseName + '.git').parent().
+                        appendNode('developerConnection', 'scm:git:git@github.com:daviddenton/' + archivesBaseName + '.git')
+                asNode().appendNode('licenses').appendNode('license').
+                        appendNode('name', 'Apache License, Version 2.0').parent().
+                        appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.html')
+            }
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+bintray {
+    user = 'daviddenton'
+    key = project.hasProperty('bintrayKey') ? project.bintrayKey : 'BINTRAYKEY'
+
+    publications = ['mavenJava']
+    dryRun = false
+    publish = true
+    pkg {
+        repo = 'maven'
+        name = archivesBaseName
+
+        desc = description
+        websiteUrl = 'https://github.com/daviddenton/' + archivesBaseName
+        issueTrackerUrl = 'https://github.com/daviddenton/' + archivesBaseName + '/issues'
+        vcsUrl = 'https://github.com/daviddenton/' + archivesBaseName + '.git'
+        licenses = ['Apache-2.0']
+        labels = []
+        publicDownloadNumbers = true
+        version {
+            name = project.version
+        }
+    }
 }
