@@ -14,10 +14,14 @@ class DataBobInstance {
     )
 
     fun <R : Any> mk(c: KClass<R>): R {
-        val constructor = c.constructors.iterator().next()
+        return mk(c.java)
+    }
+
+    fun <R : Any> mk(c: Class<R>): R {
+        val constructor = c.kotlin.constructors.iterator().next()
         val map = constructor.parameters
                 .map { k ->
-                    lookup.getOrElse(k.type.toString(), { -> mk(Class.forName(k.type.toString()).kotlin) })
+                    lookup.getOrElse(k.type.toString(), { -> mk(Class.forName(k.type.toString())) })
                 }
         return constructor.call(*map.toTypedArray())
     }

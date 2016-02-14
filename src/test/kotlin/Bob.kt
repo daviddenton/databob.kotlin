@@ -10,5 +10,5 @@ data class Sue(val v: Int)
 
 fun main(args: Array<String>) {
     val a = Databob.mk(Bob::class)
-    println(a)
+    println(a.copy(b = Databob.mk(Rita::class.java)))
 }
