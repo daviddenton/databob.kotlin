@@ -1,7 +1,7 @@
 import io.github.databob.Databob
 
-data class Bob(val v: String, val b: Int)
-data class Rita(val v: Boolean)
+data class Bob(val v: String, val b: Rita)
+data class Rita(val v: Mark)
 data class Mark(val v: Double)
 data class Bill(val v: Float)
 data class Charlie(val v: Float)
