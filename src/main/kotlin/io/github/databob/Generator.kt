@@ -1,5 +1,7 @@
 package io.github.databob
 
-interface Generator<A> {
+import kotlin.reflect.KType
 
+interface Generator {
+    fun get(type: KType): Any?
 }
