@@ -5,6 +5,9 @@ import org.junit.Ignore
 import org.junit.Test
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.sql.Timestamp
+import java.time.*
+import java.util.*
 import kotlin.test.assertTrue
 
 class DatabobTest {
@@ -29,6 +32,35 @@ class DatabobTest {
 
         assertTrue(default.mk(Exception::class) is Exception)
         assertTrue(default.mk(RuntimeException::class) is RuntimeException)
+    }
+/*
+            ZoneId::class.defaultType to { d -> ZoneId.systemDefault() },
+            Date::class.defaultType to { d -> Date() },
+            LocalTime::class.defaultType to { d -> LocalTime.now() },
+            LocalDate::class.defaultType to { d -> LocalDate.now() },
+            LocalDateTime::class.defaultType to { d -> LocalDateTime.of(d.mk(LocalDate::class), d.mk(LocalTime::class)) },
+            ZonedDateTime::class.defaultType to { d -> ZonedDateTime.of(d.mk(LocalDateTime::class), d.mk(ZoneId::class)) },
+            java.sql.Date::class.defaultType to { d -> java.sql.Date(d.mk(Date::class).time) },
+            Timestamp::class.defaultType to { d -> Timestamp.valueOf(d.mk(LocalDateTime::class)) },
+            Duration::class.defaultType to { d -> Duration.ofMillis(d.mk(Long::class)) },
+            Period::class.defaultType to { d -> Period.between(d.mk(LocalDate::class), d.mk(LocalDate::class)) }
+
+ */
+    @Test
+    fun support_date_times() {
+
+        assertTrue(default.mk(ZoneId::class) is ZoneId)
+        assertTrue(default.mk(Date::class) is Date)
+        assertTrue(default.mk(LocalTime::class) is LocalTime)
+        assertTrue(default.mk(LocalDate::class) is LocalDate)
+
+        assertTrue(default.mk(LocalDateTime::class) is LocalDateTime)
+        assertTrue(default.mk(ZonedDateTime::class) is ZonedDateTime)
+        assertTrue(default.mk(java.sql.Date::class) is java.sql.Date)
+        assertTrue(default.mk(Timestamp::class) is Timestamp)
+
+        assertTrue(default.mk(Duration::class) is Duration)
+        assertTrue(default.mk(Period::class) is Period)
     }
 
     @Test
