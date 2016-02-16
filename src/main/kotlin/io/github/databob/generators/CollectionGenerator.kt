@@ -13,10 +13,12 @@ class CollectionGenerator : Generator {
     private val lookup: Map<Type, (List<Any>) -> Any> = mapOf(
             Set::class.defaultType.javaType to { t -> setOf(t[0]) },
             List::class.defaultType.javaType to { t -> listOf(t[0]) },
+            List::class.defaultType.javaType to { t -> listOf(t[0]) },
             Map::class.defaultType.javaType to { t -> mapOf(t[0] to t[1]) }
     )
 
     override fun mk(type: KType, databob: Databob): Any? {
+        println(type)
         return when {
             type.javaType is ParameterizedType -> {
                 val coreType = type.javaType as ParameterizedType
