@@ -14,5 +14,4 @@ class CollectionGenerator : Generator {
         println("CollectionGenerator" + type)
         return lookup[type]?.invoke(type)
     }
-
 }
