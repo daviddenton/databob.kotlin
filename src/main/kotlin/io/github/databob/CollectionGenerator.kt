@@ -8,16 +8,26 @@ import kotlin.reflect.jvm.javaType
 
 class CollectionGenerator : Generator {
 
-    private val lookup: Map<Type, (DataBobInstance, ParameterizedType) -> Any> = mapOf(
-            Set::class.defaultType.javaType to { d, t -> setOf(d.mk(t.javaClass)) },
-            List::class.defaultType.javaType to { d, t -> listOf(d.mk(t.javaClass)) },
-            Map::class.defaultType.javaType to { d, t -> mapOf("" to "") }
+    private val toSet = { t: List<Any> -> setOf(t[0]) }
+    private val toList = { t: List<Any> -> listOf(t[0]) }
+    private val toMap = { t: List<Any> -> mapOf(t[0] to t[1]) }
+
+    private val lookup: Map<Type, (List<Any>) -> Any> = mapOf(
+            Set::class.defaultType.javaType to toSet,
+            List::class.defaultType.javaType to toList,
+            Map::class.defaultType.javaType to toMap
     )
 
-    override fun get(type: KType, instance: DataBobInstance): Any? {
-        val coreType = type.javaType as ParameterizedType
-        val key = coreType.rawType ?: String::class.defaultType.javaType
-        val invoke = lookup[key]?.invoke(instance, coreType)
-        return invoke
+    override fun get(type: KType, instance: Databob): Any? {
+        if (type.javaType is ParameterizedType) {
+            val coreType = type.javaType as ParameterizedType
+            val key = coreType.rawType ?: ""
+            val map: List<Any> = coreType.actualTypeArguments.map { t ->
+                instance.mk(Class.forName(t.typeName)) ?: ""
+            }
+            return lookup[key]?.invoke(map)
+        } else {
+            return null
+        }
     }
 }
