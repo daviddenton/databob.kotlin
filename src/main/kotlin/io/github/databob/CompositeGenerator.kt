@@ -10,7 +10,7 @@ class CompositeGenerator private constructor(private val generators: List<Genera
         return CompositeGenerator(generators.plus(newGenerator))
     }
 
-    override fun get(type: KType): Any? {
-        return generators.find { g -> g.get(type) != null }?.get(type)
+    override fun get(type: KType, instance: DataBobInstance): Any? {
+        return generators.find { g -> g.get(type, instance) != null }?.get(type, instance)
     }
 }

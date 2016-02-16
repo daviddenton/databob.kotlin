@@ -11,12 +11,8 @@ class DataBobInstance {
 
     fun <R : Any> mk(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
-        val map = constructor.parameters
-                .map { k -> lookup.get(k.type) ?: mk(Class.forName(k.type.toString())) }
-//                    val message: ParameterizedType = k.type.javaType as ParameterizedType
-//                    println(    message.actualTypeArguments.map { t -> t })
-//                    val message1: Type? = message.actualTypeArguments.iterator().next()
-//                    println(message1?.javaClass)
-        return constructor.call(*map.toTypedArray())
+        val generatedParameters = constructor.parameters
+                .map { k -> lookup.get(k.type, this) ?: mk(Class.forName(k.type.toString())) }
+        return constructor.call(*generatedParameters.toTypedArray())
     }
 }

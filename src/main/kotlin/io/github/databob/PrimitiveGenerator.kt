@@ -15,7 +15,7 @@ class PrimitiveGenerator : Generator {
             Int::class.defaultType to { -> 1 }
     )
 
-    override fun get(type: KType): Any? {
+    override fun get(type: KType, instance: DataBobInstance): Any? {
         println("PrimitiveGenerator" + type)
         return lookup[type]?.invoke()
     }
