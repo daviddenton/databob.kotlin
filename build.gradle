@@ -26,7 +26,7 @@ repositories {
     jcenter()
 }
 
-    apply plugin: 'java'
+apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'cobertura'
 apply plugin: 'com.github.kt3k.coveralls'
@@ -65,7 +65,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'metrique'
+            artifactId = archivesBaseName
 
             pom.withXml {
                 asNode().appendNode('name', archivesBaseName)
