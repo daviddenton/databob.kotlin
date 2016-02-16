@@ -19,9 +19,8 @@ class CollectionGenerator : Generator {
             type.javaType is ParameterizedType -> {
                 val coreType = type.javaType as ParameterizedType
                 val key = coreType.rawType ?: ""
-                return lookup[key]?.invoke(coreType.actualTypeArguments.map { t ->
-                    instance.mk(Class.forName(t.typeName)) ?: ""
-                })
+                return lookup[key]?.invoke(coreType.actualTypeArguments
+                        .map { instance.mk(Class.forName(it.typeName)) ?: "" })
             }
             else -> null
         }

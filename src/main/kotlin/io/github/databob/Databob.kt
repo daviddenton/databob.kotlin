@@ -14,8 +14,8 @@ class Databob {
     fun <R : Any> doIt(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
         val generatedParameters = constructor.parameters
-                .map { k -> generator.get(k.type, this) ?: mk(Class.forName(k.type.toString())) }
-                .map { b -> b!! }
+                .map { generator.get(it.type, this) ?: mk(Class.forName(it.type.toString())) }
+                .map { it!! }
         return constructor.call(*generatedParameters.toTypedArray())
 
     }
