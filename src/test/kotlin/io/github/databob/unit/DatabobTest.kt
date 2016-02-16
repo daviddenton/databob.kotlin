@@ -37,10 +37,6 @@ class DatabobTest {
         assertTrue(default.mk(Set::class) is Set)
     }
 
-    data class Bob(val s: String, val num : Int)
-    data class Rita(val v: Bob)
-    data class Sue(val others: List<Rita>)
-
     @Test
     fun support_data_classses() {
 
