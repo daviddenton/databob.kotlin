@@ -16,6 +16,7 @@ class PrimitiveGenerator : Generator {
     )
 
     override fun get(type: KType): Any? {
+        println("PrimitiveGenerator" + type)
         return lookup[type]?.invoke()
     }
 }
