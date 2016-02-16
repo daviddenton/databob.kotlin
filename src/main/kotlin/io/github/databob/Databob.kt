@@ -27,6 +27,5 @@ class Databob(vararg generators: Generator) {
                 .map { generator.get(it.type, this) ?: mk(Class.forName(it.type.toString())) }
                 .map { it!! }
         return constructor.call(*generatedParameters.toTypedArray())
-
     }
 }
