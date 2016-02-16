@@ -5,3 +5,8 @@ jdk:
 
 after_success:
 - ./gradlew cobertura coveralls
+
+ache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle
