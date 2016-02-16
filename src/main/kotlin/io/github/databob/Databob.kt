@@ -7,6 +7,9 @@ import io.github.databob.generators.PrimitiveGenerator
 import kotlin.reflect.KClass
 import kotlin.reflect.defaultType
 
+/**
+ * Main entry point for generating instances
+ */
 class Databob(vararg generators: Generator) {
     private val generator = generators.fold(CompositeGenerator(), { memo, next -> memo.with(next) })
 
