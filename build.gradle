@@ -35,6 +35,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'provided-base'
 
 cobertura.coverageFormats = ['html', 'xml']
+cobertura.coverageSourceDirs = ['src/main/kotlin']
 
 archivesBaseName = 'databob.kotlin'
 
