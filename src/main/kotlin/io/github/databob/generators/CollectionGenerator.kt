@@ -16,7 +16,7 @@ class CollectionGenerator : Generator {
             Map::class.defaultType.javaType to { t -> mapOf(t[0] to t[1]) }
     )
 
-    override fun get(type: KType, databob: Databob): Any? {
+    override fun mk(type: KType, databob: Databob): Any? {
         return when {
             type.javaType is ParameterizedType -> {
                 val coreType = type.javaType as ParameterizedType

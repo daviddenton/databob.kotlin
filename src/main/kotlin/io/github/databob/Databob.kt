@@ -18,13 +18,13 @@ class Databob(vararg generators: Generator) {
 
     @Suppress("UNCHECKED_CAST")
     fun <R : Any> mk(c: Class<R>): R {
-        return (generator.get(c.kotlin.defaultType, this) ?: doIt(c)) as R
+        return (generator.mk(c.kotlin.defaultType, this) ?: fallback(c)) as R
     }
 
-    private fun <R : Any> doIt(c: Class<R>): R {
+    private fun <R : Any> fallback(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
         val generatedParameters = constructor.parameters
-                .map { generator.get(it.type, this) ?: mk(Class.forName(it.type.toString())) }
+                .map { generator.mk(it.type, this) ?: mk(Class.forName(it.type.toString())) }
         return constructor.call(*generatedParameters.toTypedArray())
     }
 }

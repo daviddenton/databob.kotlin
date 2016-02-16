@@ -25,7 +25,7 @@ class PrimitiveGenerator : Generator {
             RuntimeException::class.defaultType to { d -> RuntimeException(d.mk(String::class)) }
     )
 
-    override fun get(type: KType, databob: Databob): Any? {
+    override fun mk(type: KType, databob: Databob): Any? {
         return lookup[type]?.invoke(databob)
     }
 }

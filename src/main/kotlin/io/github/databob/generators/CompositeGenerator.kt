@@ -11,7 +11,7 @@ class CompositeGenerator private constructor(private val generators: List<Genera
         return CompositeGenerator(generators.plus(newGenerator))
     }
 
-    override fun get(type: KType, databob: Databob): Any? {
-        return generators.find { it.get(type, databob) != null }?.get(type, databob)
+    override fun mk(type: KType, databob: Databob): Any? {
+        return generators.find { it.mk(type, databob) != null }?.mk(type, databob)
     }
 }

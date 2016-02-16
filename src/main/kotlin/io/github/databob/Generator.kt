@@ -3,5 +3,5 @@ package io.github.databob
 import kotlin.reflect.KType
 
 interface Generator {
-    fun get(type: KType, databob: Databob): Any?
+    fun mk(type: KType, databob: Databob): Any?
 }
