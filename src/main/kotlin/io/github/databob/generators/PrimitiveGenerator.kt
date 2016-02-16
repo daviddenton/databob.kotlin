@@ -1,5 +1,7 @@
-package io.github.databob
+package io.github.databob.generators
 
+import io.github.databob.Databob
+import io.github.databob.Generator
 import kotlin.reflect.KType
 import kotlin.reflect.defaultType
 
@@ -15,7 +17,7 @@ class PrimitiveGenerator : Generator {
             Int::class.defaultType to { -> 1 }
     )
 
-    override fun get(type: KType, instance: Databob): Any? {
+    override fun get(type: KType, databob: Databob): Any? {
         return lookup[type]?.invoke()
     }
 }
