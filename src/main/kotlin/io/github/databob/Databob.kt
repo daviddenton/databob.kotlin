@@ -25,7 +25,6 @@ class Databob(vararg generators: Generator) {
         val constructor = c.kotlin.constructors.iterator().next()
         val generatedParameters = constructor.parameters
                 .map { generator.get(it.type, this) ?: mk(Class.forName(it.type.toString())) }
-                .map { it!! }
         return constructor.call(*generatedParameters.toTypedArray())
     }
 }

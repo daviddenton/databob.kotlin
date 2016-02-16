@@ -20,8 +20,7 @@ class CollectionGenerator : Generator {
         return when {
             type.javaType is ParameterizedType -> {
                 val coreType = type.javaType as ParameterizedType
-                val key = coreType.rawType ?: ""
-                return lookup[key]?.invoke(coreType.actualTypeArguments
+                return lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments
                         .map { databob.mk(Class.forName(it.typeName)) ?: "" })
             }
             else -> null
