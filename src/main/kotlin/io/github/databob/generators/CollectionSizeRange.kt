@@ -24,9 +24,7 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
     }
 
     object generators {
-        val empty = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? = s.generatorFor(0, 0)
-        }
+        val empty = s.generatorFor(0, 0)
 
         fun exactly(value: Int): Generator = s.generatorFor(value, value)
 

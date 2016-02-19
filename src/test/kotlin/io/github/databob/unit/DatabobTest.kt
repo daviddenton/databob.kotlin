@@ -12,57 +12,56 @@ import java.util.*
 import kotlin.test.assertTrue
 
 class DatabobTest {
-    val default = Databob()
 
-        @Test
+    @Test
     fun support_primitives() {
-        assertTrue(default.mk(Boolean::class) is Boolean)
-        assertTrue(default.mk(Byte::class) is Byte)
-        assertTrue(default.mk(String::class) is String)
-        assertTrue(default.mk(Char::class) is Char)
+        assertTrue(Databob().mk(Boolean::class) is Boolean)
+        assertTrue(Databob().mk(Byte::class) is Byte)
+        assertTrue(Databob().mk(String::class) is String)
+        assertTrue(Databob().mk(Char::class) is Char)
 
-        assertTrue(default.mk(Int::class) is Int)
-        assertTrue(default.mk(Short::class) is Short)
-        assertTrue(default.mk(Long::class) is Long)
-        assertTrue(default.mk(BigInteger::class) is BigInteger)
+        assertTrue(Databob().mk(Int::class) is Int)
+        assertTrue(Databob().mk(Short::class) is Short)
+        assertTrue(Databob().mk(Long::class) is Long)
+        assertTrue(Databob().mk(BigInteger::class) is BigInteger)
 
-        assertTrue(default.mk(Double::class) is Double)
-        assertTrue(default.mk(Float::class) is Float)
-        assertTrue(default.mk(BigDecimal::class) is BigDecimal)
+        assertTrue(Databob().mk(Double::class) is Double)
+        assertTrue(Databob().mk(Float::class) is Float)
+        assertTrue(Databob().mk(BigDecimal::class) is BigDecimal)
 
-        assertTrue(default.mk(Exception::class) is Exception)
-        assertTrue(default.mk(RuntimeException::class) is RuntimeException)
+        assertTrue(Databob().mk(Exception::class) is Exception)
+        assertTrue(Databob().mk(RuntimeException::class) is RuntimeException)
     }
 
     @Test
     fun support_date_times() {
 
-        assertTrue(default.mk(ZoneId::class) is ZoneId)
-        assertTrue(default.mk(Date::class) is Date)
-        assertTrue(default.mk(LocalTime::class) is LocalTime)
-        assertTrue(default.mk(LocalDate::class) is LocalDate)
+        assertTrue(Databob().mk(ZoneId::class) is ZoneId)
+        assertTrue(Databob().mk(Date::class) is Date)
+        assertTrue(Databob().mk(LocalTime::class) is LocalTime)
+        assertTrue(Databob().mk(LocalDate::class) is LocalDate)
 
-        assertTrue(default.mk(LocalDateTime::class) is LocalDateTime)
-        assertTrue(default.mk(ZonedDateTime::class) is ZonedDateTime)
-        assertTrue(default.mk(java.sql.Date::class) is java.sql.Date)
-        assertTrue(default.mk(Timestamp::class) is Timestamp)
+        assertTrue(Databob().mk(LocalDateTime::class) is LocalDateTime)
+        assertTrue(Databob().mk(ZonedDateTime::class) is ZonedDateTime)
+        assertTrue(Databob().mk(java.sql.Date::class) is java.sql.Date)
+        assertTrue(Databob().mk(Timestamp::class) is Timestamp)
 
-        assertTrue(default.mk(Duration::class) is Duration)
-        assertTrue(default.mk(Period::class) is Period)
+        assertTrue(Databob().mk(Duration::class) is Duration)
+        assertTrue(Databob().mk(Period::class) is Period)
     }
 
     @Test
     @Ignore
     fun support_common_collections() {
         val a: List<String> = listOf("", "")
-        assertTrue(default.mk(a.javaClass) is List)
-        assertTrue(default.mk(Map::class) is Map)
-        assertTrue(default.mk(Set::class) is Set)
+        assertTrue(Databob().mk(a.javaClass) is List)
+        assertTrue(Databob().mk(Map::class) is Map)
+        assertTrue(Databob().mk(Set::class) is Set)
     }
 
     @Test
     fun support_data_classses() {
-        val mk = default.mk(ListContainer::class)
+        val mk = Databob().mk(ListContainer::class)
 
         assertTrue(mk is ListContainer)
         assertTrue(mk.others is List)
@@ -74,7 +73,7 @@ class DatabobTest {
 
     @Test
     fun support_nullable() {
-        val mk = default.mk(NullableContainer::class)
+        val mk = Databob().mk(NullableContainer::class)
 
         assertTrue(mk is NullableContainer)
         assertTrue(mk.s == null)
@@ -82,7 +81,7 @@ class DatabobTest {
 
     @Test
     fun support_funktionale() {
-        val mk = default.mk(Funktionale::class)
+        val mk = Databob().mk(Funktionale::class)
         assertTrue(mk is Funktionale)
         assertTrue(mk.v is Option<String>)
     }
