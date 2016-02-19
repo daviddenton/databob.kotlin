@@ -17,15 +17,12 @@ class CollectionGenerator : Generator {
             Map::class.defaultType.javaType to { t -> mapOf(t[0] to t[1]) }
     )
 
-    override fun mk(type: KType, databob: Databob): Any? {
-        println(type)
-        return when {
-            type.javaType is ParameterizedType -> {
-                val coreType = type.javaType as ParameterizedType
-                return lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments
-                        .map { databob.mk(Class.forName(it.typeName)) ?: "" })
-            }
-            else -> null
+    override fun mk(type: KType, databob: Databob): Any? = when {
+        type.javaType is ParameterizedType -> {
+            val coreType = type.javaType as ParameterizedType
+            lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments
+                    .map { databob.mk(Class.forName(it.typeName)) ?: "" })
         }
+        else -> null
     }
 }

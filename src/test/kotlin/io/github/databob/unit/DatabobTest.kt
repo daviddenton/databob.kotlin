@@ -63,6 +63,7 @@ class DatabobTest {
     @Test
     fun support_data_classses() {
         val mk = default.mk(Sue::class)
+
         assertTrue(mk is Sue)
         assertTrue(mk.others is List)
         assertTrue(mk.others[0] is Rita)

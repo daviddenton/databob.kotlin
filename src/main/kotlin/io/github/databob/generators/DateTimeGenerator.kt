@@ -23,7 +23,5 @@ class DateTimeGenerator : Generator {
             Period::class.defaultType to { d -> Period.between(d.mk(LocalDate::class), d.mk(LocalDate::class)) }
     )
 
-    override fun mk(type: KType, databob: Databob): Any? {
-        return lookup[type]?.invoke(databob)
-    }
+    override fun mk(type: KType, databob: Databob): Any? = lookup[type]?.invoke(databob)
 }

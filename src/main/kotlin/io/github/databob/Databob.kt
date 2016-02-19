@@ -11,18 +11,14 @@ import kotlin.reflect.defaultType
  * Main entry point for generating instances
  */
 class Databob(vararg generators: Generator) {
-    private val generator = generators.fold(CompositeGenerator(), { memo, next -> memo.with(next) })
+    private val generator = generators.fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 
     constructor () : this(PrimitiveGenerator(), CollectionGenerator(), DateTimeGenerator())
 
-    fun <R : Any> mk(c: KClass<R>): R {
-        return mk(c.java)
-    }
+    fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
 
     @Suppress("UNCHECKED_CAST")
-    fun <R : Any> mk(c: Class<R>): R {
-        return (generator.mk(c.kotlin.defaultType, this) ?: fallback(c)) as R
-    }
+    fun <R : Any> mk(c: Class<R>): R = (generator.mk(c.kotlin.defaultType, this) ?: fallback(c)) as R
 
     private fun <R : Any> fallback(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
