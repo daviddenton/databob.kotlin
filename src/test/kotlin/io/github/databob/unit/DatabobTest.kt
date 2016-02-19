@@ -2,7 +2,6 @@ package io.github.databob.unit
 
 import io.github.databob.Databob
 import org.funktionale.option.Option
-import org.junit.Ignore
 import org.junit.Test
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -51,24 +50,40 @@ class DatabobTest {
     }
 
     @Test
-    @Ignore
-    fun support_common_collections() {
-        val a: List<String> = listOf("", "")
-        assertTrue(Databob().mk(a.javaClass) is List)
-        assertTrue(Databob().mk(Map::class) is Map)
-        assertTrue(Databob().mk(Set::class) is Set)
+    fun support_list() {
+        val mk = Databob().mk(ListContainer::class)
+        assertTrue(mk is ListContainer)
+        assertTrue(mk.contents is List)
+        assertTrue(mk.contents.isNotEmpty())
+        assertTrue(mk.contents[0] is Container)
     }
 
     @Test
-    fun support_data_classses() {
-        val mk = Databob().mk(ListContainer::class)
+    fun support_set() {
+        val mk = Databob().mk(SetContainer::class)
+        assertTrue(mk is SetContainer)
+        assertTrue(mk.contents is Set)
+        assertTrue(mk.contents.isNotEmpty())
+        assertTrue(mk.contents.iterator().next() is String)
+    }
 
-        assertTrue(mk is ListContainer)
-        assertTrue(mk.others is List)
-        assertTrue(mk.others[0] is Container)
-        assertTrue(mk.others[0].v is IntAndString)
-        assertTrue(mk.others[0].v.s is String)
-        assertTrue(mk.others[0].v.num is Int)
+    @Test
+    fun support_map() {
+        val mk = Databob().mk(MapContainer::class)
+        assertTrue(mk is MapContainer)
+        assertTrue(mk.contents is Map)
+        assertTrue(mk.contents.isNotEmpty())
+        assertTrue(mk.contents.entries.iterator().next().key is String)
+        assertTrue(mk.contents.entries.iterator().next().value is Container)
+    }
+
+    @Test
+    fun support_nested_data_classses() {
+        val mk = Databob().mk(Container::class)
+
+        assertTrue(mk.v is IntAndString)
+        assertTrue(mk.v.s is String)
+        assertTrue(mk.v.num is Int)
     }
 
     @Test

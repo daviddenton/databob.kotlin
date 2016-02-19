@@ -8,6 +8,10 @@ data class Container(val v: IntAndString)
 
 data class IntAndString(val s: String, val num : Int)
 
-data class ListContainer(val others: List<Container>)
+data class ListContainer(val contents: List<Container>)
+
+data class SetContainer(val contents: Set<String>)
+
+data class MapContainer(val contents: Map<String, Container>)
 
 data class NullableContainer(val s: String?)
