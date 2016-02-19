@@ -10,18 +10,38 @@ import kotlin.reflect.jvm.javaType
 
 class CollectionGenerator : Generator {
 
-    private val lookup: Map<Type, (List<Any>) -> Any> = mapOf(
-            Set::class.defaultType.javaType to { t -> setOf(t[0]) },
-            List::class.defaultType.javaType to { t -> listOf(t[0]) },
-            List::class.defaultType.javaType to { t -> listOf(t[0]) },
-            Map::class.defaultType.javaType to { t -> mapOf(t[0] to t[1]) }
+    object instances {
+        val empty = CompositeGenerator(listOf(
+                CollectionSizeRange.generators.empty,
+                CollectionGenerator())
+        )
+        val nonEmpty = CompositeGenerator(listOf(
+                CollectionSizeRange.generators.exactly(1),
+                CollectionGenerator())
+        )
+        val random = CompositeGenerator(listOf(
+                CollectionSizeRange.generators.between(1, 5),
+                CollectionGenerator())
+        )
+    }
+
+    private fun ctr(databob: Databob, type: Type): Any = databob.mk(Class.forName(type.typeName)) ?: ""
+
+    private inline fun <reified T> construct(databob: Databob, ctrFn: () -> T): Array<T> {
+        return databob.mk(CollectionSizeRange::class).toRandomRange()
+                .map { ctrFn() }.toTypedArray()
+    }
+
+    private val lookup: Map<Type, (Array<Type>, Databob) -> Any> = mapOf(
+            Set::class.defaultType.javaType to { t, d -> setOf(*construct (d) { ctr(d, t[0]) }) },
+            List::class.defaultType.javaType to { t, d -> listOf(*construct (d) { ctr(d, t[0]) }) },
+            Map::class.defaultType.javaType to { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) }
     )
 
     override fun mk(type: KType, databob: Databob): Any? = when {
         type.javaType is ParameterizedType -> {
             val coreType = type.javaType as ParameterizedType
-            lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments
-                    .map { databob.mk(Class.forName(it.typeName)) ?: "" })
+            lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments, databob)
         }
         else -> null
     }

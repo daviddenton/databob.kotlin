@@ -4,6 +4,7 @@ import io.github.databob.Databob
 import io.github.databob.Generator
 import java.util.*
 import kotlin.reflect.KType
+import kotlin.reflect.defaultType
 
 data class CollectionSizeRange(val min: Int, val max: Int) {
 
@@ -12,20 +13,40 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
     }
 
     object generators {
-        fun empty(): Generator = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? = CollectionSizeRange(0, 0)
+        val empty = object : Generator {
+            override fun mk(type: KType, databob: Databob): Any? =
+                    if (type == CollectionSizeRange::class.defaultType) {
+                        CollectionSizeRange(0, 0)
+                    } else {
+                        null
+                    }
         }
 
         fun exactly(value: Int): Generator = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? = CollectionSizeRange(value, value)
+            override fun mk(type: KType, databob: Databob): Any? =
+                    if (type == CollectionSizeRange::class.defaultType) {
+                        null
+                    } else {
+                        CollectionSizeRange(value, value)
+                    }
         }
 
         fun between(min: Int, max: Int): Generator = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? = CollectionSizeRange(min, max)
+            override fun mk(type: KType, databob: Databob): Any? =
+                    if (type == CollectionSizeRange::class.defaultType) {
+                        CollectionSizeRange(min, max)
+                    } else {
+                        null
+                    }
         }
 
-        fun atMost(value: Int): Generator = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? = CollectionSizeRange(0, value)
+        fun atMost(max: Int): Generator = object : Generator {
+            override fun mk(type: KType, databob: Databob): Any? =
+                    if (type == CollectionSizeRange::class.defaultType) {
+                        CollectionSizeRange(0, max)
+                    } else {
+                        null
+                    }
         }
     }
 

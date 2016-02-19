@@ -4,18 +4,15 @@ import io.github.databob.generators.*
 import kotlin.reflect.KClass
 import kotlin.reflect.defaultType
 
-/**
- * Main entry point for generating instances
- */
 class Databob(vararg generators: Generator) {
     private val generator = generators.fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 
     constructor () : this(
             MiscellaneousGenerator(),
             PrimitiveGenerator(),
-            CollectionGenerator(),
             DateTimeGenerator(),
-            FunktionaleGenerator()
+            FunktionaleGenerator(),
+            CollectionGenerator.instances.random
     )
 
     fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
