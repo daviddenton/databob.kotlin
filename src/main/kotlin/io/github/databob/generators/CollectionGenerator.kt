@@ -25,7 +25,7 @@ class CollectionGenerator : Generator {
         )
     }
 
-    private fun ctr(databob: Databob, type: Type): Any = databob.mk(Class.forName(type.typeName)) ?: ""
+    private fun ctr(databob: Databob, type: Type): Any = databob.mk(Class.forName(type.typeName))
 
     private inline fun <reified T> construct(databob: Databob, ctrFn: () -> T): Array<T> {
         return databob.mk(CollectionSizeRange::class).toRandomRange()

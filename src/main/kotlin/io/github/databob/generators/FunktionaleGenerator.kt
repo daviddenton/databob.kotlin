@@ -22,7 +22,7 @@ class FunktionaleGenerator : Generator {
         type.javaType is ParameterizedType -> {
             val coreType = type.javaType as ParameterizedType
             lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments
-                    .map { databob.mk(Class.forName(it.typeName)) ?: "" })
+                    .map { databob.mk(Class.forName(it.typeName)) })
         }
         else -> null
     }
