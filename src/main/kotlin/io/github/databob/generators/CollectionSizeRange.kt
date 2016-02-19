@@ -12,26 +12,8 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
         if (min > max) throw IllegalArgumentException("Cannot construct negative sized range")
     }
 
-    object generators {
-        val empty = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? =
-                    if (type == CollectionSizeRange::class.defaultType) {
-                        CollectionSizeRange(0, 0)
-                    } else {
-                        null
-                    }
-        }
-
-        fun exactly(value: Int): Generator = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? =
-                    if (type == CollectionSizeRange::class.defaultType) {
-                        null
-                    } else {
-                        CollectionSizeRange(value, value)
-                    }
-        }
-
-        fun between(min: Int, max: Int): Generator = object : Generator {
+    private object s {
+        fun generatorFor(min: Int, max: Int) = object : Generator {
             override fun mk(type: KType, databob: Databob): Any? =
                     if (type == CollectionSizeRange::class.defaultType) {
                         CollectionSizeRange(min, max)
@@ -39,15 +21,18 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
                         null
                     }
         }
+    }
 
-        fun atMost(max: Int): Generator = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? =
-                    if (type == CollectionSizeRange::class.defaultType) {
-                        CollectionSizeRange(0, max)
-                    } else {
-                        null
-                    }
+    object generators {
+        val empty = object : Generator {
+            override fun mk(type: KType, databob: Databob): Any? = s.generatorFor(0, 0)
         }
+
+        fun exactly(value: Int): Generator = s.generatorFor(value, value)
+
+        fun between(min: Int, max: Int): Generator = s.generatorFor(min, max)
+
+        fun atMost(max: Int): Generator = s.generatorFor(0, max)
     }
 
     fun toRandomRange(): IntRange = when {
