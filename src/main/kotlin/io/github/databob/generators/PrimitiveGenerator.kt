@@ -20,9 +20,7 @@ class PrimitiveGenerator : Generator {
             Long::class.defaultType to { d -> d.mk(Int::class).toLong() },
             Int::class.defaultType to { d -> d.mk(Double::class).toInt() },
             BigInteger::class.defaultType to { d -> BigInteger.valueOf(d.mk(Long::class)) },
-            BigDecimal::class.defaultType to { d -> BigDecimal.valueOf(d.mk(Double::class)) },
-            Exception::class.defaultType to { d -> Exception(d.mk(String::class)) },
-            RuntimeException::class.defaultType to { d -> RuntimeException(d.mk(String::class)) }
+            BigDecimal::class.defaultType to { d -> BigDecimal.valueOf(d.mk(Double::class)) }
     )
 
     override fun mk(type: KType, databob: Databob): Any? = lookup[type]?.invoke(databob)

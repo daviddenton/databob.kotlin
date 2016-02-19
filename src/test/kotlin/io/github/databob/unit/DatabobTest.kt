@@ -1,6 +1,7 @@
 package io.github.databob.unit
 
 import io.github.databob.Databob
+import org.funktionale.option.Option
 import org.junit.Ignore
 import org.junit.Test
 import java.math.BigDecimal
@@ -13,9 +14,8 @@ import kotlin.test.assertTrue
 class DatabobTest {
     val default = Databob()
 
-    @Test
+        @Test
     fun support_primitives() {
-
         assertTrue(default.mk(Boolean::class) is Boolean)
         assertTrue(default.mk(Byte::class) is Byte)
         assertTrue(default.mk(String::class) is String)
@@ -62,13 +62,28 @@ class DatabobTest {
 
     @Test
     fun support_data_classses() {
-        val mk = default.mk(Sue::class)
+        val mk = default.mk(ListContainer::class)
 
-        assertTrue(mk is Sue)
+        assertTrue(mk is ListContainer)
         assertTrue(mk.others is List)
-        assertTrue(mk.others[0] is Rita)
-        assertTrue(mk.others[0].v is Bob)
+        assertTrue(mk.others[0] is Container)
+        assertTrue(mk.others[0].v is IntAndString)
         assertTrue(mk.others[0].v.s is String)
         assertTrue(mk.others[0].v.num is Int)
+    }
+
+    @Test
+    fun support_nullable() {
+        val mk = default.mk(NullableContainer::class)
+
+        assertTrue(mk is NullableContainer)
+        assertTrue(mk.s == null)
+    }
+
+    @Test
+    fun support_funktionale() {
+        val mk = default.mk(Funktionale::class)
+        assertTrue(mk is Funktionale)
+        assertTrue(mk.v is Option<String>)
     }
 }

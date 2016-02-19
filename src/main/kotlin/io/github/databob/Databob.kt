@@ -1,9 +1,6 @@
 package io.github.databob
 
-import io.github.databob.generators.CollectionGenerator
-import io.github.databob.generators.CompositeGenerator
-import io.github.databob.generators.DateTimeGenerator
-import io.github.databob.generators.PrimitiveGenerator
+import io.github.databob.generators.*
 import kotlin.reflect.KClass
 import kotlin.reflect.defaultType
 
@@ -13,7 +10,13 @@ import kotlin.reflect.defaultType
 class Databob(vararg generators: Generator) {
     private val generator = generators.fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 
-    constructor () : this(PrimitiveGenerator(), CollectionGenerator(), DateTimeGenerator())
+    constructor () : this(
+            MiscellaneousGenerator(),
+            PrimitiveGenerator(),
+            CollectionGenerator(),
+            DateTimeGenerator(),
+            FunktionaleGenerator()
+    )
 
     fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
 
@@ -23,7 +26,12 @@ class Databob(vararg generators: Generator) {
     private fun <R : Any> fallback(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
         val generatedParameters = constructor.parameters
-                .map { generator.mk(it.type, this) ?: mk(Class.forName(it.type.toString())) }
+                .map {
+                    if (it.type.isMarkedNullable) null
+                    else {
+                        generator.mk(it.type, this) ?: mk(Class.forName(it.type.toString()))
+                    }
+                }
         return constructor.call(*generatedParameters.toTypedArray())
     }
 }
