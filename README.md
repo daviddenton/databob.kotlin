@@ -107,7 +107,7 @@ Databob(override).mk(Email::class)
 - Kotlin/Java primitives/Enums
 - Kotlin and Java8 Collection classes
 - Java8 date-time values
-- Bindings for [Funktionale][https://github.com/MarioAriasC/funKTionale] monadic types (Option/Either)
+- Bindings for [Funktionale](https://github.com/MarioAriasC/funKTionale) monadic types (Option/Either)
 - Simple overriding mechanism for your own-types and custom generation rules
 
 ### See it in action
@@ -122,7 +122,7 @@ See the [example code](https://github.com/daviddenton/databob.kotlin/tree/master
 </dependency>
 ```
 
-For extension binding support (such as [Funktionale][https://github.com/MarioAriasC/funKTionale], you'll need to also add relevant dependencies)
+For extension binding support (such as [Funktionale](https://github.com/MarioAriasC/funKTionale), you'll need to also add relevant dependencies)
 
 ###Contribute
 PRs gratefully accepted for generators for other common Library types that might be useful. Note the idea is for the library to NOT depend on any other libraries, but to simply ship the bindings to plug them in.
