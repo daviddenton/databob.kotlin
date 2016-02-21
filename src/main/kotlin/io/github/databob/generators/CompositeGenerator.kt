@@ -5,7 +5,7 @@ import io.github.databob.Generator
 import java.lang.reflect.Type
 
 class CompositeGenerator (private val generators: List<Generator>) : Generator {
-    constructor() : this(listOf())
+    constructor(vararg generators: Generator) : this(generators.asList())
 
     fun with(newGenerator: Generator): CompositeGenerator = CompositeGenerator(listOf(newGenerator).plus(generators))
 
