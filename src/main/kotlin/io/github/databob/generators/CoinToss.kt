@@ -1,27 +1,13 @@
 package io.github.databob.generators
 
-import io.github.databob.Databob
-import io.github.databob.Generator
-import java.lang.reflect.Type
+import io.github.databob.Generators
 import java.util.*
-import kotlin.reflect.defaultType
-import kotlin.reflect.jvm.javaType
 
 class CoinToss(private val successRate: Int) {
-
     object instances {
-        fun successRatioOf(rate: Int) = object : Generator {
-            override fun mk(type: Type, databob: Databob): Any? =
-                    if (type == CoinToss::class.defaultType.javaType) {
-                        CoinToss(rate)
-                    } else {
-                        null
-                    }
-        }
-
-        val even = successRatioOf(50)
-        val alwaysTails = successRatioOf(0)
-        val alwaysHeads = successRatioOf(100)
+        val even = Generators.ofType { -> CoinToss(50) }
+        val alwaysTails = Generators.ofType { -> CoinToss(0) }
+        val alwaysHeads = Generators.ofType { -> CoinToss(100) }
     }
 
     init {

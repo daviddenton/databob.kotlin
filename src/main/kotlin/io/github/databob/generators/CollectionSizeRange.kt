@@ -11,13 +11,13 @@ class CollectionSizeRange(private val min: Int, private val max: Int) {
     }
 
     object generators {
-        val empty = Generators.matchingType { -> CollectionSizeRange(0, 0) }
+        val empty = Generators.ofType { -> CollectionSizeRange(0, 0) }
 
-        fun exactly(value: Int): Generator = Generators.matchingType { -> CollectionSizeRange(value, value) }
+        fun exactly(value: Int): Generator = Generators.ofType { -> CollectionSizeRange(value, value) }
 
-        fun between(min: Int, max: Int): Generator = Generators.matchingType { -> CollectionSizeRange(min, max) }
+        fun between(min: Int, max: Int): Generator = Generators.ofType { -> CollectionSizeRange(min, max) }
 
-        fun atMost(max: Int): Generator = Generators.matchingType { -> CollectionSizeRange(0, max) }
+        fun atMost(max: Int): Generator = Generators.ofType { -> CollectionSizeRange(0, max) }
     }
 
     fun toRandomRange(): IntRange = when {

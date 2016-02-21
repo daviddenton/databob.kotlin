@@ -12,7 +12,7 @@ class CollectionGenerator : Generator {
 
     object instances {
         val random = CompositeGenerator(listOf(
-                Generators.matchingType { -> CollectionSizeRange(1, 5) },
+                Generators.ofType { -> CollectionSizeRange(1, 5) },
                 CollectionGenerator())
         )
     }
