@@ -13,7 +13,7 @@ class Databob(vararg overrides: Generator) {
             DateTimeGenerator(),
             FunktionaleGenerator(),
             CollectionGenerator.instances.random,
-            CoinToss.instances.even)
+            CoinToss.generators.even)
 
     private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 

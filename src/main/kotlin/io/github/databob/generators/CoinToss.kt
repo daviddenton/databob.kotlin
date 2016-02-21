@@ -4,7 +4,7 @@ import io.github.databob.Generators
 import java.util.*
 
 class CoinToss(private val successRate: Int) {
-    object instances {
+    object generators {
         val even = Generators.ofType { -> CoinToss(50) }
         val alwaysTails = Generators.ofType { -> CoinToss(0) }
         val alwaysHeads = Generators.ofType { -> CoinToss(100) }

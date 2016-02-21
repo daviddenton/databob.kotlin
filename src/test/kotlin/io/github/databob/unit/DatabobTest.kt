@@ -138,7 +138,7 @@ class DatabobTest {
 
     @Test
     fun support_nullable_lists() {
-        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullableListContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(NullableListContainer::class)
 
         assertTrue(mk is NullableListContainer)
         assertTrue(mk.s is List<String>)
@@ -146,14 +146,14 @@ class DatabobTest {
 
     @Test
     fun support_nullable_containers() {
-        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullableContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(NullableContainer::class)
         assertTrue(mk is NullableContainer)
         assertTrue(mk.s is IntAndString)
     }
 
     @Test
     fun support_nullable_primitives() {
-        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullablePrimitiveContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(NullablePrimitiveContainer::class)
 
         assertTrue(mk is NullablePrimitiveContainer)
         assertTrue(mk.s is String)
@@ -161,7 +161,7 @@ class DatabobTest {
 
     @Test
     fun support_nullable_interfaces() {
-        val mk = Databob(CoinToss.instances.alwaysHeads, interfaceGenerator).mk(NullableInterfaceContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads, interfaceGenerator).mk(NullableInterfaceContainer::class)
 
         assertTrue(mk is NullableInterfaceContainer)
         assertTrue(mk.s is AnInterface)
@@ -169,7 +169,7 @@ class DatabobTest {
 
     @Test
     fun support_nullable_enums() {
-        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullableEnumContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(NullableEnumContainer::class)
 
         assertTrue(mk is NullableEnumContainer)
         assertTrue(mk.s is AnEnum)
