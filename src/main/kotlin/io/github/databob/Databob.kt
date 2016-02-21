@@ -26,7 +26,7 @@ class Databob(vararg generators: Generator) {
         val generatedParameters = constructor.parameters
                 .map {
                     if (it.type.isMarkedNullable) {
-                        generator.mk(it.type.javaType, this)
+                        generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString().replace("?", "")))
                     }
                     else {
                         generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString()))
