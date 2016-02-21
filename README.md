@@ -5,6 +5,8 @@
 [![build status](https://travis-ci.org/daviddenton/databob.kotlin.svg?branch=master)](https://travis-ci.org/daviddenton/databob.kotlin)
 [![bintray version](https://api.bintray.com/packages/daviddenton/maven/databob.kotlin/images/download.svg)](https://bintray.com/daviddenton/maven/databob.kotlin/_latestVersion)
 
+##### (Also available in [Scala](https://github.com/daviddenton/databob.scala) and [JavaScript](https://github.com/daviddenton/databob) flavours)
+
 Databob provides a way to generate completely randomised object builders with zero-boilerplate code.
 
 ###Why?
