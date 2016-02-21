@@ -2,6 +2,8 @@ package io.github.databob.unit
 
 import org.funktionale.either.Either
 import org.funktionale.option.Option
+import java.util.*
+import java.util.stream.Stream
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
@@ -20,6 +22,10 @@ data class ListContainer(val contents: List<Container>)
 data class StringListContainer(val contents: List<String>)
 
 data class SetContainer(val contents: Set<String>)
+
+data class VectorContainer(val contents: Vector<String>)
+
+data class StreamContainer(val contents: Stream<String>)
 
 data class MapContainer(val contents: Map<String, Container>)
 

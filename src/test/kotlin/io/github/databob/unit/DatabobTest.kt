@@ -11,6 +11,7 @@ import java.math.BigInteger
 import java.sql.Timestamp
 import java.time.*
 import java.util.*
+import java.util.stream.Stream
 import kotlin.test.assertTrue
 
 class DatabobTest {
@@ -69,7 +70,23 @@ class DatabobTest {
         assertTrue(mk is StringListContainer)
         assertTrue(mk.contents is List)
         assertTrue(mk.contents.isNotEmpty())
-        assertTrue(mk.contents[0] is String)
+        assertTrue(mk.contents.iterator().next() is String)
+    }
+
+    @Test
+    fun support_stream() {
+        val mk = Databob().mk(StreamContainer::class)
+        assertTrue(mk is StreamContainer)
+        assertTrue(mk.contents is Stream)
+        assertTrue(mk.contents.iterator().next() is String)
+    }
+
+    @Test
+    fun support_vector() {
+        val mk = Databob().mk(VectorContainer::class)
+        assertTrue(mk is VectorContainer)
+        assertTrue(mk.contents is Vector)
+        assertTrue(mk.contents.iterator().next() is String)
     }
 
     @Test
@@ -77,7 +94,6 @@ class DatabobTest {
         val mk = Databob().mk(SetContainer::class)
         assertTrue(mk is SetContainer)
         assertTrue(mk.contents is Set)
-        assertTrue(mk.contents.isNotEmpty())
         assertTrue(mk.contents.iterator().next() is String)
     }
 

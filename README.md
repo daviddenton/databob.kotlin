@@ -100,7 +100,7 @@ Databob(override).mk(Email::class)
 
 ### Out-of-the-box features:
 - Nested object-trees (ie. non-primitive fields)
-- All Kotlin/Java primitives
+- Kotlin/Java primitives/Enums
 - Kotlin and Java Collection classes
 - Java8 date-time values
 - Bindings for Funktionale monadic types (Option/Either)
