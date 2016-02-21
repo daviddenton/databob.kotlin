@@ -7,7 +7,7 @@
 
 ##### (Also available in [Scala](https://github.com/daviddenton/databob.scala) and [JavaScript](https://github.com/daviddenton/databob) flavours)
 
-Databob provides a way to generate completely randomised object builders with zero-boilerplate code.
+Databob provides a way to generate completely randomised objects with zero-boilerplate builder code.
 
 ###Why?
 The problem of generating dummy test instances for our classes has been around for a long time. Given the following data classes...
