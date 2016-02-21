@@ -22,9 +22,12 @@ data class NullablePrimitiveContainer(val s: String?)
 
 data class NullableListContainer(val s: List<String>?)
 
+interface AnInterface
+
+class AnInterfaceImpl : AnInterface {}
+
 enum class Direction {
     NORTH, SOUTH, WEST, EAST
-
 }
 
 fun main(args: Array<String>) {

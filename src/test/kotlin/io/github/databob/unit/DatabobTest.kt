@@ -1,6 +1,7 @@
 package io.github.databob.unit
 
 import io.github.databob.Databob
+import io.github.databob.Generators
 import io.github.databob.generators.CoinToss
 import org.funktionale.option.Option
 import org.junit.Test
@@ -76,6 +77,12 @@ class DatabobTest {
         assertTrue(mk.contents.isNotEmpty())
         assertTrue(mk.contents.entries.iterator().next().key is String)
         assertTrue(mk.contents.entries.iterator().next().value is Container)
+    }
+
+    @Test
+    fun support_interface() {
+        val mk = Databob(Generators.isAssignableFrom(AnInterface::class.java, { -> AnInterfaceImpl() })).mk(AnInterface::class)
+        assertTrue(mk is AnInterface)
     }
 
     @Test
