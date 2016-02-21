@@ -2,6 +2,7 @@ package io.github.databob
 
 import io.github.databob.generators.*
 import kotlin.reflect.KClass
+import kotlin.reflect.KParameter
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
@@ -27,14 +28,16 @@ class Databob(vararg overrides: Generator) {
                 .map {
                     if (it.type.isMarkedNullable) {
                         if (mk(CoinToss::class).toss()) {
-                            generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString().replace("?", "")))
+                            convert(it)
                         } else {
                             null
                         }
                     } else {
-                        generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString()))
+                        convert(it)
                     }
                 }
         return constructor.call(*generatedParameters.toTypedArray())
     }
+
+    private fun convert(it: KParameter) = generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString().replace("?", "")))
 }
