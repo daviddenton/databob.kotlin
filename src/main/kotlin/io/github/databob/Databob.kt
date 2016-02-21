@@ -7,7 +7,7 @@ import kotlin.reflect.jvm.javaType
 
 class Databob(vararg overrides: Generator) {
     private val defaults = listOf(
-            MiscellaneousGenerator(),
+            LanugageConstructsGenerator(),
             PrimitiveGenerator(),
             DateTimeGenerator(),
             FunktionaleGenerator(),

@@ -6,7 +6,7 @@ import java.lang.reflect.Type
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
-class MiscellaneousGenerator : Generator {
+class LanugageConstructsGenerator : Generator {
 
     private val lookup: Map<Type, (Databob) -> Any> = mapOf(
             Exception::class.defaultType.javaType to { d -> Exception(d.mk(String::class)) },

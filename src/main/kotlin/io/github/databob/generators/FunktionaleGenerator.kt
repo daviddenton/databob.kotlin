@@ -17,8 +17,8 @@ class FunktionaleGenerator : Generator {
 
     )
 
-    override fun mk(type: Type, databob: Databob): Any? = when {
-        type is ParameterizedType -> {
+    override fun mk(type: Type, databob: Databob): Any? = when (type) {
+        is ParameterizedType -> {
             lookup[type.rawType]?.invoke(type.actualTypeArguments
                     .map { databob.mk(Class.forName(it.typeName)) })
         }
