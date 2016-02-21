@@ -21,7 +21,7 @@ data class Inbox(val address: EmailAddress, val emails: List<Email>)
 
 We could start to write objects using the [TestBuilder](http://www.javacodegeeks.com/2013/06/builder-pattern-good-for-code-great-for-tests.html) pattern using the traditional method:
 ```kotlin
-class InboxAddressBuilder {
+class InboxBuilder {
     private var address = EmailAddress("some@email.address.com")
     private var emails = listOf<Email>()
 
@@ -43,7 +43,7 @@ class InboxAddressBuilder {
 Kotlin makes this easier for us somewhat by leveraging data class ```copy()```. This also allows us to be compiler safe, as removing 
 a field will break the equivalent ```with``` method:
 ```kotlin
-class InboxAddressBuilder {
+class InboxBuilder {
   private var inbox = Inbox(EmailAddress("some@email.address.com"), List[Email]())
   
   def withAddress(newAddress: EmailAddress) = {
@@ -58,10 +58,23 @@ class InboxAddressBuilder {
 
   def build = inbox
 }
-
 ```
 
-Pretty tedious to maintain. Additionally, we don't really want tests to rely unknowingly on 
+Taking this even further with data class copy(), we can reduce this to:
+```kotlin
+class BetterInboxBuilder private constructor(private val inbox: Inbox) {
+
+    constructor() : this(Inbox(EmailAddress("some@email.address.com"), listOf<Email>()))
+
+    fun withAddress(newAddress: EmailAddress) = BetterInboxBuilder(inbox.copy(address = newAddress))
+
+    fun withEmails(newEmails: List<Email>) = BetterInboxBuilder(inbox.copy(emails = newEmails))
+
+    fun build() = inbox
+}
+```
+
+So, better - but it still seems pretty tedious to maintain. Additionally, we don't really want tests to rely unknowingly on 
 bits of default test data for multiple tests which will lead to an explosion of [ObjectMother](http://martinfowler.com/bliki/ObjectMother.html)-type methods with small variations 
 to suit particular tests.
 

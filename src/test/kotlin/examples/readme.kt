@@ -13,21 +13,32 @@ data class Email(val from: EmailAddress, val to: List<EmailAddress>, val date: Z
 
 data class Inbox(val address: EmailAddress, val emails: List<Email>)
 
-class InboxAddressBuilder {
+class InboxBuilder {
     private var address = EmailAddress("some@email.address.com")
     private var emails = listOf<Email>()
 
-    fun withAddress(newAddress: EmailAddress): InboxAddressBuilder {
+    fun withAddress(newAddress: EmailAddress): InboxBuilder {
         address = newAddress
         return this
     }
 
-    fun withEmails(newEmails: List<Email>): InboxAddressBuilder {
+    fun withEmails(newEmails: List<Email>): InboxBuilder {
         emails = newEmails
         return this
     }
 
     fun build() = Inbox(address, emails)
+}
+
+class BetterInboxBuilder private constructor(private val inbox: Inbox) {
+
+    constructor() : this(Inbox(EmailAddress("some@email.address.com"), listOf<Email>()))
+
+    fun withAddress(newAddress: EmailAddress) = BetterInboxBuilder(inbox.copy(address = newAddress))
+
+    fun withEmails(newEmails: List<Email>) = BetterInboxBuilder(inbox.copy(emails = newEmails))
+
+    fun build() = inbox
 }
 
 val a = Databob().mk(Email::class)
