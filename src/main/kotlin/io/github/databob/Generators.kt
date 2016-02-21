@@ -1,0 +1,17 @@
+package io.github.databob
+
+import java.lang.reflect.Type
+import kotlin.reflect.defaultType
+import kotlin.reflect.jvm.javaType
+
+object Generators {
+    inline fun <reified T> matchingType(crossinline fn: () -> T): Generator = object : Generator {
+        override fun mk(type: Type, databob: Databob): Any? {
+            if (type == T::class.defaultType.javaType) {
+                return fn()
+            } else {
+                return null
+            }
+        }
+    }
+}

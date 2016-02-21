@@ -5,16 +5,16 @@ import kotlin.reflect.KClass
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
-class Databob(vararg generators: Generator) {
-    private val generator = generators.toList().plus(
-            listOf(
-                    MiscellaneousGenerator(),
-                    PrimitiveGenerator(),
-                    DateTimeGenerator(),
-                    FunktionaleGenerator(),
-                    CollectionGenerator.instances.random,
-                    CoinToss.instances.even)
-    ).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
+class Databob(vararg overrides: Generator) {
+    private val defaults = listOf(
+            MiscellaneousGenerator(),
+            PrimitiveGenerator(),
+            DateTimeGenerator(),
+            FunktionaleGenerator(),
+            CollectionGenerator.instances.random,
+            CoinToss.instances.even)
+
+    private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 
     fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
 
@@ -28,7 +28,9 @@ class Databob(vararg generators: Generator) {
                     if (it.type.isMarkedNullable) {
                         if (mk(CoinToss::class).toss()) {
                             generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString().replace("?", "")))
-                        } else null
+                        } else {
+                            null
+                        }
                     } else {
                         generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString()))
                     }

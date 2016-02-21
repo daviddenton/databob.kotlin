@@ -1,35 +1,23 @@
 package io.github.databob.generators
 
-import io.github.databob.Databob
 import io.github.databob.Generator
-import java.lang.reflect.Type
+import io.github.databob.Generators
 import java.util.*
-import kotlin.reflect.defaultType
-import kotlin.reflect.jvm.javaType
 
-data class CollectionSizeRange(val min: Int, val max: Int) {
+class CollectionSizeRange(private val min: Int, private val max: Int) {
 
     init {
         if (min > max) throw IllegalArgumentException("Cannot construct negative sized range")
     }
 
     object generators {
-        private fun generatorFor(min: Int, max: Int) = object : Generator {
-            override fun mk(type: Type, databob: Databob): Any? =
-                    if (type == CollectionSizeRange::class.defaultType.javaType) {
-                        CollectionSizeRange(min, max)
-                    } else {
-                        null
-                    }
-        }
+        val empty = Generators.matchingType { -> CollectionSizeRange(0, 0) }
 
-        val empty = generatorFor(0, 0)
+        fun exactly(value: Int): Generator = Generators.matchingType { -> CollectionSizeRange(value, value) }
 
-        fun exactly(value: Int): Generator = generatorFor(value, value)
+        fun between(min: Int, max: Int): Generator = Generators.matchingType { -> CollectionSizeRange(min, max) }
 
-        fun between(min: Int, max: Int): Generator = generatorFor(min, max)
-
-        fun atMost(max: Int): Generator = generatorFor(0, max)
+        fun atMost(max: Int): Generator = Generators.matchingType { -> CollectionSizeRange(0, max) }
     }
 
     fun toRandomRange(): IntRange = when {

@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
-data class CoinToss(val successRate: Int) {
+class CoinToss(private val successRate: Int) {
 
     object instances {
         fun successRatioOf(rate: Int) = object : Generator {
@@ -29,7 +29,7 @@ data class CoinToss(val successRate: Int) {
 
     }
 
-    fun toss() = Random().nextInt(100) < successRate
+    fun toss(): Boolean = Random().nextInt(100) < successRate
 }
 
 
