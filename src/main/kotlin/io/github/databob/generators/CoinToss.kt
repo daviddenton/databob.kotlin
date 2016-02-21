@@ -12,7 +12,6 @@ class CoinToss(private val successRate: Int) {
 
     init {
         if (successRate < 0 || successRate > 100) throw IllegalArgumentException("Success rate % must be 0-100")
-
     }
 
     fun toss(): Boolean = Random().nextInt(100) < successRate
