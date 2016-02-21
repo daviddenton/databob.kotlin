@@ -11,7 +11,7 @@ Databob provides a way to generate completely randomised object builders with ze
 
 ###Why?
 The problem of generating dummy test instances for our classes has been around for a long time. Given the following data classes...
-```kotlin
+```
 data class ReadReceipt(val read: Boolean)
 
 data class EmailAddress(val value: String)
@@ -22,7 +22,7 @@ data class Inbox(val address: EmailAddress, val emails: List<Email>)
 ```
 
 We could start to write objects using the [TestBuilder](http://www.javacodegeeks.com/2013/06/builder-pattern-good-for-code-great-for-tests.html) pattern using the traditional method:
-```kotlin
+```
 class InboxBuilder {
     private var address = EmailAddress("some@email.address.com")
     private var emails = listOf<Email>()
@@ -43,7 +43,7 @@ class InboxBuilder {
 
 Kotlin makes this easier for us somewhat by leveraging data class ```copy()```. This also allows us to be compiler safe, as removing 
 a field will break the equivalent ```with``` method:
-```kotlin
+```
 class InboxBuilder {
   private var inbox = Inbox(EmailAddress("some@email.address.com"), List[Email]())
   
@@ -62,7 +62,7 @@ class InboxBuilder {
 ```
 
 Taking this even further with data class copy(), we can reduce this to:
-```kotlin
+```
 class BetterInboxBuilder private constructor(private val inbox: Inbox) {
 
     constructor() : this(Inbox(EmailAddress("some@email.address.com"), listOf<Email>()))
@@ -82,17 +82,17 @@ to suit particular tests.
 What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. No sharing of test data across tests. Ever.
 
 Enter Databob. For a completely randomised instance, including non-primitive sub-tree objects:
-```kotlin
+```
 Databob().mk(Email::class)
 ```
 
 That's it. Want to override particular value(s)?
-```kotlin
+```
 Databob().mk(Email::class).copy(from = EmailAddress("my@real.email.com"))
 ```
 
 Or add your own rule for generating values?
-```kotlin
+```
 val override = Generators.ofType { databob -> EmailAddress(databob.mk(String::class) + "@" + databob.mk(String::class) + ".com") }
 
 Databob(override).mk(Email::class)
