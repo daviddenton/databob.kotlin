@@ -1,33 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Databob.kotlin by daviddenton</title>
+    <meta name="description" content="Databob.kotlin : Randomised, zero-boilerplate object builders">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Databob.kotlin</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Databob.kotlin</h1>
-        <p>Randomised, zero-boilerplate object builders</p>
 
-        <p class="view"><a href="https://github.com/daviddenton/databob.kotlin">View the Project on GitHub <small>daviddenton/databob.kotlin</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/daviddenton/databob.kotlin">View on GitHub</a>
 
+          <h1 id="project_title">Databob.kotlin</h1>
+          <h2 id="project_tagline">Randomised, zero-boilerplate object builders</h2>
 
-        <ul>
-          <li><a href="https://github.com/daviddenton/databob.kotlin/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/daviddenton/databob.kotlin/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/daviddenton/databob.kotlin">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/daviddenton/databob.kotlin/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/daviddenton/databob.kotlin/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>
 <a id="databobkotlin" class="anchor" href="#databobkotlin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>databob.kotlin</h1>
 
@@ -39,7 +42,7 @@
 <h5>
 <a id="also-available-in-scala-and-javascript-flavours" class="anchor" href="#also-available-in-scala-and-javascript-flavours" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>(Also available in <a href="https://github.com/daviddenton/databob.scala">Scala</a> and <a href="https://github.com/daviddenton/databob">JavaScript</a> flavours)</h5>
 
-<p>Databob provides a way to generate completely randomised object builders with zero-boilerplate code.</p>
+<p>Databob provides a way to generate completely randomised objects with zero-boilerplate builder code.</p>
 
 <h3>
 <a id="why" class="anchor" href="#why" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why?</h3>
@@ -76,31 +79,31 @@
 <p>Kotlin makes this easier for us somewhat by leveraging data class <code>copy()</code>. This also allows us to be compiler safe, as removing 
 a field will break the equivalent <code>with</code> method:</p>
 
-<div class="highlight highlight-source-Kotlin"><pre>class <span class="pl-en">InboxBuilder</span> {
-  <span class="pl-k">private</span> <span class="pl-k">var</span> <span class="pl-en">inbox</span> <span class="pl-k">=</span> Inbox(EmailAddress(<span class="pl-s"><span class="pl-pds">"</span>some@email.address.com<span class="pl-pds">"</span></span>), List[Email]())
+<div class="highlight highlight-source-Kotlin"><pre>class <span class="pl-en">BetterInboxBuilder</span> {
+    <span class="pl-k">private</span> <span class="pl-k">var</span> <span class="pl-en">inbox</span> <span class="pl-k">=</span> Inbox(EmailAddress(<span class="pl-s"><span class="pl-pds">"</span>some@email.address.com<span class="pl-pds">"</span></span>), listOf&lt;Email&gt;())
 
-  def withAddress(newAddress<span class="pl-k">:</span> EmailAddress) <span class="pl-k">=</span> {
-    inbox <span class="pl-k">=</span> inbox<span class="pl-k">.</span>copy(address <span class="pl-k">=</span> newAddress)
-    <span class="pl-c1">this</span>
-  }
+    <span class="pl-k">fun</span> <span class="pl-en">withAddress</span>(<span class="pl-smi">newAddress</span><span class="pl-k">:</span> EmailAddress) <span class="pl-k">:</span> BetterInboxBuilder {
+        inbox <span class="pl-k">=</span> inbox<span class="pl-k">.</span>copy(address <span class="pl-k">=</span> newAddress)
+        <span class="pl-k">return</span> <span class="pl-c1">this</span>
+    }
 
-  def withEmails(newEmails<span class="pl-k">:</span> List[Email]) <span class="pl-k">=</span> {
-    inbox <span class="pl-k">=</span> inbox<span class="pl-k">.</span>copy(emails <span class="pl-k">=</span> newEmails)
-    <span class="pl-c1">this</span>
-  }
+    <span class="pl-k">fun</span> <span class="pl-en">withEmails</span>(<span class="pl-smi">newEmails</span><span class="pl-k">:</span> <span class="pl-k">List</span>&lt;Email&gt;)<span class="pl-k">:</span> BetterInboxBuilder {
+        inbox <span class="pl-k">=</span> inbox<span class="pl-k">.</span>copy(emails <span class="pl-k">=</span> newEmails)
+        <span class="pl-k">return</span> <span class="pl-c1">this</span>
+    }
 
-  def build <span class="pl-k">=</span> inbox
+    <span class="pl-k">fun</span> <span class="pl-en">build</span>() <span class="pl-k">=</span> inbox
 }</pre></div>
 
-<p>Taking this even further with data class copy(), we can reduce this to:</p>
+<p>Taking this even further with immutability and using data class <code>copy()</code>, we can reduce this to:</p>
 
-<div class="highlight highlight-source-Kotlin"><pre>class <span class="pl-en">BetterInboxBuilder</span> <span class="pl-en">private</span> <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-smi">inbox</span><span class="pl-k">:</span> Inbox) {
+<div class="highlight highlight-source-Kotlin"><pre>class <span class="pl-en">EvenBetterInboxBuilder</span> <span class="pl-en">private</span> <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-smi">inbox</span><span class="pl-k">:</span> Inbox) {
 
     constructor() <span class="pl-k">:</span> <span class="pl-c1">this</span>(Inbox(EmailAddress(<span class="pl-s"><span class="pl-pds">"</span>some@email.address.com<span class="pl-pds">"</span></span>), listOf&lt;Email&gt;()))
 
-    <span class="pl-k">fun</span> <span class="pl-en">withAddress</span>(<span class="pl-smi">newAddress</span><span class="pl-k">:</span> EmailAddress) <span class="pl-k">=</span> BetterInboxBuilder(inbox<span class="pl-k">.</span>copy(address <span class="pl-k">=</span> newAddress))
+    <span class="pl-k">fun</span> <span class="pl-en">withAddress</span>(<span class="pl-smi">newAddress</span><span class="pl-k">:</span> EmailAddress) <span class="pl-k">=</span> EvenBetterInboxBuilder(inbox<span class="pl-k">.</span>copy(address <span class="pl-k">=</span> newAddress))
 
-    <span class="pl-k">fun</span> <span class="pl-en">withEmails</span>(<span class="pl-smi">newEmails</span><span class="pl-k">:</span> <span class="pl-k">List</span>&lt;Email&gt;) <span class="pl-k">=</span> BetterInboxBuilder(inbox<span class="pl-k">.</span>copy(emails <span class="pl-k">=</span> newEmails))
+    <span class="pl-k">fun</span> <span class="pl-en">withEmails</span>(<span class="pl-smi">newEmails</span><span class="pl-k">:</span> <span class="pl-k">List</span>&lt;Email&gt;) <span class="pl-k">=</span> EvenBetterInboxBuilder(inbox<span class="pl-k">.</span>copy(emails <span class="pl-k">=</span> newEmails))
 
     <span class="pl-k">fun</span> <span class="pl-en">build</span>() <span class="pl-k">=</span> inbox
 }</pre></div>
@@ -109,9 +112,14 @@ a field will break the equivalent <code>with</code> method:</p>
 bits of default test data for multiple tests which will lead to an explosion of <a href="http://martinfowler.com/bliki/ObjectMother.html">ObjectMother</a>-type methods with small variations 
 to suit particular tests.</p>
 
-<p>What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. No sharing of test data across tests. Ever.</p>
+<p>What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. </p>
 
-<p>Enter Databob. For a completely randomised instance, including non-primitive sub-tree objects:</p>
+<p>No sharing of test data across tests. <b>Ever</b>.</p>
+
+<h4>
+<a id="enter-databob" class="anchor" href="#enter-databob" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enter Databob</h4>
+
+<p>For a completely randomised instance, including non-primitive sub-tree objects:</p>
 
 <div class="highlight highlight-source-Kotlin"><pre>Databob()<span class="pl-k">.</span>mk(Email<span class="pl-k">::</span>class)</pre></div>
 
@@ -130,7 +138,7 @@ Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk(Email<s
 
 <ul>
 <li>Nested object-trees (ie. non-primitive fields)</li>
-<li>All Kotlin/Java primitives</li>
+<li>Kotlin/Java primitives/Enums</li>
 <li>Kotlin and Java Collection classes</li>
 <li>Java8 date-time values</li>
 <li>Bindings for Funktionale monadic types (Option/Either)</li>
@@ -158,12 +166,17 @@ Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk(Email<s
 
 <p>PRs gratefully accepted for other common types that might be useful.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/daviddenton">daviddenton</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Databob.kotlin maintained by <a href="https://github.com/daviddenton">daviddenton</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
