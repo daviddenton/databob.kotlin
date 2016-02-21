@@ -6,7 +6,6 @@ import org.funktionale.option.Option
 import org.funktionale.option.Option.Some
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.KType
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
@@ -18,10 +17,9 @@ class FunktionaleGenerator : Generator {
 
     )
 
-    override fun mk(type: KType, databob: Databob): Any? = when {
-        type.javaType is ParameterizedType -> {
-            val coreType = type.javaType as ParameterizedType
-            lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments
+    override fun mk(type: Type, databob: Databob): Any? = when {
+        type is ParameterizedType -> {
+            lookup[type.rawType]?.invoke(type.actualTypeArguments
                     .map { databob.mk(Class.forName(it.typeName)) })
         }
         else -> null

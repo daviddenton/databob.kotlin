@@ -87,11 +87,26 @@ class DatabobTest {
     }
 
     @Test
-    fun support_nullable() {
-        val mk = Databob().mk(NullableContainer::class)
+    fun support_nullable_lists() {
+        val mk = Databob().mk(NullableListContainer::class)
 
+        assertTrue(mk is NullableListContainer)
+        assertTrue(mk.s is List<String>)
+    }
+
+    @Test
+    fun support_nullable_containers() {
+        val mk = Databob().mk(NullableContainer::class)
         assertTrue(mk is NullableContainer)
-        assertTrue(mk.s == null)
+        assertTrue(mk.s is IntAndString)
+    }
+
+    @Test
+    fun support_nullable_primitives() {
+        val mk = Databob().mk(NullablePrimitiveContainer::class)
+
+        assertTrue(mk is NullablePrimitiveContainer)
+        assertTrue(mk.s is String)
     }
 
     @Test

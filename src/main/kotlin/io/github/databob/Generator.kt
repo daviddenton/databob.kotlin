@@ -1,7 +1,7 @@
 package io.github.databob
 
-import kotlin.reflect.KType
+import java.lang.reflect.Type
 
 interface Generator {
-    fun mk(type: KType, databob: Databob): Any?
+    fun mk(type: Type, databob: Databob): Any?
 }

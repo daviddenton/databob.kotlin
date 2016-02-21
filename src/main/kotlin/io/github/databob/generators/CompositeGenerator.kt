@@ -2,12 +2,12 @@ package io.github.databob.generators
 
 import io.github.databob.Databob
 import io.github.databob.Generator
-import kotlin.reflect.KType
+import java.lang.reflect.Type
 
 class CompositeGenerator (private val generators: List<Generator>) : Generator {
     constructor() : this(listOf())
 
     fun with(newGenerator: Generator): CompositeGenerator = CompositeGenerator(generators.plus(newGenerator))
 
-    override fun mk(type: KType, databob: Databob): Any? = generators.find { it.mk(type, databob) != null }?.mk(type, databob)
+    override fun mk(type: Type, databob: Databob): Any? = generators.find { it.mk(type, databob) != null }?.mk(type, databob)
 }

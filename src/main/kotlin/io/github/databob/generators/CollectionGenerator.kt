@@ -4,7 +4,6 @@ import io.github.databob.Databob
 import io.github.databob.Generator
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.KType
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
@@ -38,9 +37,9 @@ class CollectionGenerator : Generator {
             Map::class.defaultType.javaType to { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) }
     )
 
-    override fun mk(type: KType, databob: Databob): Any? = when {
-        type.javaType is ParameterizedType -> {
-            val coreType = type.javaType as ParameterizedType
+    override fun mk(type: Type, databob: Databob): Any? = when {
+        type is ParameterizedType -> {
+            val coreType = type
             lookup[coreType.rawType]?.invoke(coreType.actualTypeArguments, databob)
         }
         else -> null

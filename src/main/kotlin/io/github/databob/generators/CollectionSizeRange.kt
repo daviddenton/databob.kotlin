@@ -2,9 +2,10 @@ package io.github.databob.generators
 
 import io.github.databob.Databob
 import io.github.databob.Generator
+import java.lang.reflect.Type
 import java.util.*
-import kotlin.reflect.KType
 import kotlin.reflect.defaultType
+import kotlin.reflect.jvm.javaType
 
 data class CollectionSizeRange(val min: Int, val max: Int) {
 
@@ -14,8 +15,8 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
 
     private object s {
         fun generatorFor(min: Int, max: Int) = object : Generator {
-            override fun mk(type: KType, databob: Databob): Any? =
-                    if (type == CollectionSizeRange::class.defaultType) {
+            override fun mk(type: Type, databob: Databob): Any? =
+                    if (type == CollectionSizeRange::class.defaultType.javaType) {
                         CollectionSizeRange(min, max)
                     } else {
                         null
