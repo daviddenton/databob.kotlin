@@ -62,6 +62,7 @@ class BetterInboxBuilder {
 ```
 
 Taking this even further with immutability and using data class ```copy()```, we can reduce this to:
+
 ```kotlin
 class EvenBetterInboxBuilder private constructor(private val inbox: Inbox) {
 
@@ -73,7 +74,7 @@ class EvenBetterInboxBuilder private constructor(private val inbox: Inbox) {
 
     fun build() = inbox
 }
-```kotlin
+```
 
 So, better - but it still seems pretty tedious to maintain. Additionally, we don't really want tests to rely unknowingly on 
 bits of default test data for multiple tests which will lead to an explosion of [ObjectMother](http://martinfowler.com/bliki/ObjectMother.html)-type methods with small variations 
