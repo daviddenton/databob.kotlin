@@ -27,14 +27,14 @@ class InboxBuilder {
     private var address = EmailAddress("some@email.address.com")
     private var emails = listOf<Email>()
 
-    fun withAddress(newAddress: EmailAddress) = {
+    fun withAddress(newAddress: EmailAddress): InboxBuilder {
         address = newAddress
-        this
+        return this
     }
 
-    fun withEmails(newEmails: List<Email>) = {
+    fun withEmails(newEmails: List<Email>): InboxBuilder {
         emails = newEmails
-        this
+        return this
     }
 
     fun build() = Inbox(address, emails)
