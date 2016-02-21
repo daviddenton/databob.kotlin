@@ -1,10 +1,13 @@
 package io.github.databob.unit
 
+import org.funktionale.either.Either
 import org.funktionale.option.Option
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 
-data class Funktionale(val v: Option<String>)
+data class FunktionaleOption(val v: Option<IntAndString>)
+
+data class FunktionaleEither(val v: Either<IntAndString, Container>)
 
 data class Container(val v: IntAndString)
 
@@ -13,6 +16,8 @@ data class IntAndString(val s: String, val num: Int)
 data class InterfaceContainer(val contents: AnInterface)
 
 data class ListContainer(val contents: List<Container>)
+
+data class StringListContainer(val contents: List<String>)
 
 data class SetContainer(val contents: Set<String>)
 

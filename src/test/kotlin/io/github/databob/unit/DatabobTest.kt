@@ -3,6 +3,7 @@ package io.github.databob.unit
 import io.github.databob.Databob
 import io.github.databob.Generators
 import io.github.databob.generators.CoinToss
+import org.funktionale.either.Either
 import org.funktionale.option.Option
 import org.junit.Test
 import java.math.BigDecimal
@@ -60,6 +61,15 @@ class DatabobTest {
         assertTrue(mk.contents is List)
         assertTrue(mk.contents.isNotEmpty())
         assertTrue(mk.contents[0] is Container)
+    }
+
+    @Test
+    fun support_list_of_strings() {
+        val mk = Databob().mk(StringListContainer::class)
+        assertTrue(mk is StringListContainer)
+        assertTrue(mk.contents is List)
+        assertTrue(mk.contents.isNotEmpty())
+        assertTrue(mk.contents[0] is String)
     }
 
     @Test
@@ -150,9 +160,16 @@ class DatabobTest {
     }
 
     @Test
-    fun support_funktionale() {
-        val mk = Databob().mk(Funktionale::class)
-        assertTrue(mk is Funktionale)
-        assertTrue(mk.v is Option<String>)
+    fun support_funktionale_option() {
+        val mk = Databob().mk(FunktionaleOption::class)
+        assertTrue(mk is FunktionaleOption)
+        assertTrue(mk.v is Option<IntAndString>)
+    }
+
+    @Test
+    fun support_funktionale_either() {
+        val mk = Databob().mk(FunktionaleEither::class)
+        assertTrue(mk is FunktionaleEither)
+        assertTrue(mk.v is Either.Right<IntAndString, Container>)
     }
 }
