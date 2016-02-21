@@ -3,7 +3,14 @@ package io.github.databob.generators
 import io.github.databob.Generators
 import java.util.*
 
+/**
+ * Represents a weighted binary choice in data generation
+ */
 class CoinToss(private val successRate: Int) {
+
+    /**
+     * Pre-packed generator instances
+     */
     object generators {
         val even = Generators.ofType { -> CoinToss(50) }
         val alwaysTails = Generators.ofType { -> CoinToss(0) }

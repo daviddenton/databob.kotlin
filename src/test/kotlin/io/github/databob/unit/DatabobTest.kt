@@ -57,7 +57,7 @@ class DatabobTest {
 
     @Test
     fun support_list() {
-        val mk = Databob().mk(ListContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(ListContainer::class)
         assertTrue(mk is ListContainer)
         assertTrue(mk.contents is List)
         assertTrue(mk.contents.isNotEmpty())
@@ -66,7 +66,7 @@ class DatabobTest {
 
     @Test
     fun support_list_of_strings() {
-        val mk = Databob().mk(StringListContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(StringListContainer::class)
         assertTrue(mk is StringListContainer)
         assertTrue(mk.contents is List)
         assertTrue(mk.contents.isNotEmpty())
@@ -75,7 +75,7 @@ class DatabobTest {
 
     @Test
     fun support_stream() {
-        val mk = Databob().mk(StreamContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(StreamContainer::class)
         assertTrue(mk is StreamContainer)
         assertTrue(mk.contents is Stream)
         assertTrue(mk.contents.iterator().next() is String)
@@ -83,7 +83,7 @@ class DatabobTest {
 
     @Test
     fun support_vector() {
-        val mk = Databob().mk(VectorContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(VectorContainer::class)
         assertTrue(mk is VectorContainer)
         assertTrue(mk.contents is Vector)
         assertTrue(mk.contents.iterator().next() is String)
@@ -91,7 +91,7 @@ class DatabobTest {
 
     @Test
     fun support_set() {
-        val mk = Databob().mk(SetContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(SetContainer::class)
         assertTrue(mk is SetContainer)
         assertTrue(mk.contents is Set)
         assertTrue(mk.contents.iterator().next() is String)
@@ -99,7 +99,7 @@ class DatabobTest {
 
     @Test
     fun support_map() {
-        val mk = Databob().mk(MapContainer::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(MapContainer::class)
         assertTrue(mk is MapContainer)
         assertTrue(mk.contents is Map)
         assertTrue(mk.contents.isNotEmpty())
@@ -129,7 +129,7 @@ class DatabobTest {
 
     @Test
     fun support_nested_data_classses() {
-        val mk = Databob().mk(Container::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(Container::class)
 
         assertTrue(mk.v is IntAndString)
         assertTrue(mk.v.s is String)
@@ -177,14 +177,14 @@ class DatabobTest {
 
     @Test
     fun support_funktionale_option() {
-        val mk = Databob().mk(FunktionaleOption::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(FunktionaleOption::class)
         assertTrue(mk is FunktionaleOption)
         assertTrue(mk.v is Option<IntAndString>)
     }
 
     @Test
     fun support_funktionale_either() {
-        val mk = Databob().mk(FunktionaleEither::class)
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk(FunktionaleEither::class)
         assertTrue(mk is FunktionaleEither)
         assertTrue(mk.v is Either.Right<IntAndString, Container>)
     }

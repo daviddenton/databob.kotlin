@@ -8,9 +8,16 @@ import java.util.*
 
 class CollectionGenerator : Generator {
 
+    /**
+     * Pre-packed generator instances
+     */
     object instances {
         val random = CompositeGenerator(listOf(
-                Generators.ofType { -> CollectionSizeRange(1, 5) },
+                Generators.ofType { d ->
+                    if (d.mk(CoinToss::class).toss()) {
+                        CollectionSizeRange(1, 5)
+                    } else CollectionSizeRange(0, 0)
+                },
                 CollectionGenerator())
         )
         val empty = CompositeGenerator(listOf(

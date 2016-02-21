@@ -10,7 +10,7 @@ class Databob(vararg overrides: Generator) {
     private val defaults = listOf(
             LanguageConstructsGenerator(),
             PrimitiveGenerator(),
-            DateTimeGenerator(),
+            DateTimeGenerator.instances.random,
             FunktionaleGenerator(),
             CollectionGenerator.instances.random,
             CoinToss.generators.even)
