@@ -9,7 +9,7 @@
 
 Databob provides a way to generate completely randomised objects with zero-boilerplate builder code.
 
-###Why?
+### Why?
 The problem of generating dummy test instances for our classes has been around for a long time. Given the following data classes...
 ```kotlin
 data class ReadReceipt(val read: Boolean)
@@ -82,7 +82,8 @@ to suit particular tests.
 
 What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. No sharing of test data across tests. Ever.
 
-Enter <b>Databob</b>. For a completely randomised instance, including non-primitive sub-tree objects:
+#### Enter Databob
+For a completely randomised instance, including non-primitive sub-tree objects:
 ```kotlin
 Databob().mk(Email::class)
 ```
