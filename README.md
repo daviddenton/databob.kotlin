@@ -80,7 +80,9 @@ So, better - but it still seems pretty tedious to maintain. Additionally, we don
 bits of default test data for multiple tests which will lead to an explosion of [ObjectMother](http://martinfowler.com/bliki/ObjectMother.html)-type methods with small variations 
 to suit particular tests.
 
-What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. No sharing of test data across tests. Ever.
+What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. 
+
+No sharing of test data across tests. <b>Ever</b>.
 
 #### Enter Databob
 For a completely randomised instance, including non-primitive sub-tree objects:
