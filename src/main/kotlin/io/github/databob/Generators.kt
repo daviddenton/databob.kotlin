@@ -18,7 +18,6 @@ object Generators {
         }
     }
 
-
     inline fun <reified T> ofType(crossinline fn: () -> T): Generator = object : Generator {
         override fun mk(type: Type, databob: Databob): Any? {
             if (type == T::class.defaultType.javaType) {
