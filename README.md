@@ -122,7 +122,7 @@ See the [example code](https://github.com/daviddenton/databob.kotlin/tree/master
 </dependency>
 ```
 
-For extension binding support (such as [Funktionale](https://github.com/MarioAriasC/funKTionale), you'll need to also add relevant dependencies)
+For extension binding support (such as [Funktionale](https://github.com/MarioAriasC/funKTionale)), you'll need to also add relevant dependencies)
 
 ###Contribute
 PRs gratefully accepted for generators for other common Library types that might be useful. Note the idea is for the library to NOT depend on any other libraries, but to simply ship the bindings to plug them in.
