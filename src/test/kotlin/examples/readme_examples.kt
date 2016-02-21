@@ -30,13 +30,30 @@ class InboxBuilder {
     fun build() = Inbox(address, emails)
 }
 
-class BetterInboxBuilder private constructor(private val inbox: Inbox) {
+class BetterInboxBuilder {
+    private var inbox = Inbox(EmailAddress("some@email.address.com"), listOf<Email>())
+
+    fun withAddress(newAddress: EmailAddress) : BetterInboxBuilder {
+        inbox = inbox.copy(address = newAddress)
+        return this
+    }
+
+    fun withEmails(newEmails: List<Email>): BetterInboxBuilder {
+        inbox = inbox.copy(emails = newEmails)
+        return this
+    }
+
+    fun build() = inbox
+}
+
+
+class EvenBetterInboxBuilder private constructor(private val inbox: Inbox) {
 
     constructor() : this(Inbox(EmailAddress("some@email.address.com"), listOf<Email>()))
 
-    fun withAddress(newAddress: EmailAddress) = BetterInboxBuilder(inbox.copy(address = newAddress))
+    fun withAddress(newAddress: EmailAddress) = EvenBetterInboxBuilder(inbox.copy(address = newAddress))
 
-    fun withEmails(newEmails: List<Email>) = BetterInboxBuilder(inbox.copy(emails = newEmails))
+    fun withEmails(newEmails: List<Email>) = EvenBetterInboxBuilder(inbox.copy(emails = newEmails))
 
     fun build() = inbox
 }

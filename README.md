@@ -44,32 +44,32 @@ class InboxBuilder {
 Kotlin makes this easier for us somewhat by leveraging data class ```copy()```. This also allows us to be compiler safe, as removing 
 a field will break the equivalent ```with``` method:
 ```
-class InboxBuilder {
-  private var inbox = Inbox(EmailAddress("some@email.address.com"), List[Email]())
-  
-  def withAddress(newAddress: EmailAddress) = {
-    inbox = inbox.copy(address = newAddress)
-    this
-  }
+class BetterInboxBuilder {
+    private var inbox = Inbox(EmailAddress("some@email.address.com"), listOf<Email>())
 
-  def withEmails(newEmails: List[Email]) = {
-    inbox = inbox.copy(emails = newEmails)
-    this
-  }
+    fun withAddress(newAddress: EmailAddress) : BetterInboxBuilder {
+        inbox = inbox.copy(address = newAddress)
+        return this
+    }
 
-  def build = inbox
+    fun withEmails(newEmails: List<Email>): BetterInboxBuilder {
+        inbox = inbox.copy(emails = newEmails)
+        return this
+    }
+
+    fun build() = inbox
 }
 ```
 
-Taking this even further with data class copy(), we can reduce this to:
+Taking this even further with immutability and using data class ```copy()```, we can reduce this to:
 ```
-class BetterInboxBuilder private constructor(private val inbox: Inbox) {
+class EvenBetterInboxBuilder private constructor(private val inbox: Inbox) {
 
     constructor() : this(Inbox(EmailAddress("some@email.address.com"), listOf<Email>()))
 
-    fun withAddress(newAddress: EmailAddress) = BetterInboxBuilder(inbox.copy(address = newAddress))
+    fun withAddress(newAddress: EmailAddress) = EvenBetterInboxBuilder(inbox.copy(address = newAddress))
 
-    fun withEmails(newEmails: List<Email>) = BetterInboxBuilder(inbox.copy(emails = newEmails))
+    fun withEmails(newEmails: List<Email>) = EvenBetterInboxBuilder(inbox.copy(emails = newEmails))
 
     fun build() = inbox
 }
@@ -81,7 +81,7 @@ to suit particular tests.
 
 What we really want are completely randomised instances, with important overrides set-up only for tests that rely on them. No sharing of test data across tests. Ever.
 
-Enter Databob. For a completely randomised instance, including non-primitive sub-tree objects:
+Enter <b>Databob</b>. For a completely randomised instance, including non-primitive sub-tree objects:
 ```
 Databob().mk(Email::class)
 ```
