@@ -10,6 +10,8 @@ data class Container(val v: IntAndString)
 
 data class IntAndString(val s: String, val num: Int)
 
+data class InterfaceContainer(val contents: AnInterface)
+
 data class ListContainer(val contents: List<Container>)
 
 data class SetContainer(val contents: Set<String>)
@@ -22,15 +24,19 @@ data class NullablePrimitiveContainer(val s: String?)
 
 data class NullableListContainer(val s: List<String>?)
 
+data class NullableInterfaceContainer(val s: AnInterface?)
+
+data class NullableEnumContainer(val s: AnEnum?)
+
 interface AnInterface
 
 class AnInterfaceImpl : AnInterface {}
 
-enum class Direction {
+enum class AnEnum {
     NORTH, SOUTH, WEST, EAST
 }
 
 fun main(args: Array<String>) {
-    Direction::class.java.isEnum
-    println(Direction::class.defaultType.javaType)
+    AnEnum::class.java.isEnum
+    println(AnEnum::class.defaultType.javaType)
 }

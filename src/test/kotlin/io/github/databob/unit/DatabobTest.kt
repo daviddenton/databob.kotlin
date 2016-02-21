@@ -14,6 +14,8 @@ import kotlin.test.assertTrue
 
 class DatabobTest {
 
+    private val interfaceGenerator = Generators.ofType<AnInterface> { -> AnInterfaceImpl() }
+
     @Test
     fun support_primitives() {
         assertTrue(Databob().mk(Boolean::class) is Boolean)
@@ -81,14 +83,22 @@ class DatabobTest {
 
     @Test
     fun support_interface() {
-        val mk = Databob(Generators.isAssignableFrom(AnInterface::class.java, { -> AnInterfaceImpl() })).mk(AnInterface::class)
+        val mk = Databob(interfaceGenerator).mk(AnInterface::class)
         assertTrue(mk is AnInterface)
     }
 
     @Test
     fun support_enum() {
-        val mk = Databob().mk(Direction::class)
-        assertTrue(mk is Direction)
+        val mk = Databob().mk(AnEnum::class)
+        assertTrue(mk is AnEnum)
+    }
+
+    @Test
+    fun support_nested_interfaces() {
+        val mk = Databob(interfaceGenerator).mk(InterfaceContainer::class)
+
+        assertTrue(mk is InterfaceContainer)
+        assertTrue(mk.contents is AnInterface)
     }
 
     @Test
@@ -121,6 +131,22 @@ class DatabobTest {
 
         assertTrue(mk is NullablePrimitiveContainer)
         assertTrue(mk.s is String)
+    }
+
+    @Test
+    fun support_nullable_interfaces() {
+        val mk = Databob(CoinToss.instances.alwaysHeads, interfaceGenerator).mk(NullableInterfaceContainer::class)
+
+        assertTrue(mk is NullableInterfaceContainer)
+        assertTrue(mk.s is AnInterface)
+    }
+
+    @Test
+    fun support_nullable_enums() {
+        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullableEnumContainer::class)
+
+        assertTrue(mk is NullableEnumContainer)
+        assertTrue(mk.s is AnEnum)
     }
 
     @Test
