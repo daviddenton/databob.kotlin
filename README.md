@@ -37,7 +37,6 @@ class InboxBuilder {
 
     fun build() = Inbox(address, emails)
 }
-}
 ```
 
 Kotlin makes this easier for us somewhat by leveraging data class ```copy()```. This also allows us to be compiler safe, as removing 
