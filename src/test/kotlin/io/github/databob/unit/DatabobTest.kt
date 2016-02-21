@@ -79,6 +79,12 @@ class DatabobTest {
     }
 
     @Test
+    fun support_enum() {
+        val mk = Databob().mk(Direction::class)
+        assertTrue(mk is Direction)
+    }
+
+    @Test
     fun support_nested_data_classses() {
         val mk = Databob().mk(Container::class)
 

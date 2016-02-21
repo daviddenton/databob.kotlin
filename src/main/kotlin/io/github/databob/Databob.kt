@@ -20,7 +20,12 @@ class Databob(vararg overrides: Generator) {
     fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
 
     @Suppress("UNCHECKED_CAST")
-    fun <R : Any> mk(c: Class<R>): R = (generator.mk(c.kotlin.defaultType.javaType, this) ?: fallback(c)) as R
+    fun <R : Any> mk(c: Class<R>): R = when {
+        c.isEnum -> c.enumConstants[0]
+        else -> {
+            (generator.mk(c.kotlin.defaultType.javaType, this) ?: fallback(c)) as R
+        }
+    }
 
     private fun <R : Any> fallback(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
