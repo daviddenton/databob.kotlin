@@ -12,9 +12,9 @@ class DateTimeGenerator : Generator {
 
     private val generator = CompositeGenerator(
             Generators.ofType { d -> ZoneId.systemDefault() },
-            Generators.ofType { d -> Date() },
-            Generators.ofType { d -> LocalTime.now() },
-            Generators.ofType { d -> LocalDate.now() },
+            Generators.ofType { d -> Date(d.mk(Long::class)) },
+            Generators.ofType { d -> LocalTime.ofNanoOfDay(d.mk(Int::class).toLong()) },
+            Generators.ofType { d -> LocalDate.ofEpochDay(d.mk(Short::class).toLong()) },
             Generators.ofType { d -> LocalDateTime.of(d.mk(LocalDate::class), d.mk(LocalTime::class)) },
             Generators.ofType { d -> ZonedDateTime.of(d.mk(LocalDateTime::class), d.mk(ZoneId::class)) },
             Generators.ofType { d -> java.sql.Date(d.mk(Date::class).time) },

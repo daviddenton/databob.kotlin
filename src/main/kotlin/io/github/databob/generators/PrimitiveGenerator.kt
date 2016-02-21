@@ -12,13 +12,13 @@ import kotlin.reflect.jvm.javaType
 class PrimitiveGenerator : Generator {
 
     private val lookup: Map<Type, (Databob) -> Any> = mapOf(
-            Boolean::class.defaultType.javaType to { d -> d.mk(CoinToss::class).toss() },
-            Char::class.defaultType.javaType to { d -> Random().nextInt(256).toChar() },
             String::class.defaultType.javaType to { d -> UUID.randomUUID().toString() },
+            Short::class.defaultType.javaType to { d -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
+            Char::class.defaultType.javaType to { d -> Random().nextInt(256).toChar() },
             Double::class.defaultType.javaType to { d -> Random().nextDouble() * Int.MAX_VALUE },
+            Boolean::class.defaultType.javaType to { d -> d.mk(CoinToss::class).toss() },
             Int::class.defaultType.javaType to { d -> d.mk(Double::class).toInt() },
             Long::class.defaultType.javaType to { d -> d.mk(Int::class).toLong() },
-            Short::class.defaultType.javaType to { d -> d.mk(Int::class).toShort() },
             Byte::class.defaultType.javaType to { d -> d.mk(Char::class).toByte() },
             Float::class.defaultType.javaType to { d -> d.mk(Double::class).toFloat() },
             BigInteger::class.defaultType.javaType to { d -> BigInteger.valueOf(d.mk(Long::class)) },
