@@ -22,9 +22,9 @@ class CollectionGenerator : Generator {
     }
 
     private val generator = CompositeGenerator(
-            Generators.ofType(Set::class, { t, d -> setOf(*construct (d) { ctr(d, t[0]) }) }),
-            Generators.ofType(List::class, { t, d -> listOf(*construct (d) { ctr(d, t[0]) }) }),
-            Generators.ofType(Map::class, { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) })
+            Generators.ofType { t, d -> setOf(*construct (d) { ctr(d, t[0]) }) },
+            Generators.ofType { t, d -> listOf(*construct (d) { ctr(d, t[0]) }) },
+            Generators.ofType { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) }
     )
 
     override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)
