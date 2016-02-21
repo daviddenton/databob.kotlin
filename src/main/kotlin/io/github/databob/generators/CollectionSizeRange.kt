@@ -13,8 +13,8 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
         if (min > max) throw IllegalArgumentException("Cannot construct negative sized range")
     }
 
-    private object s {
-        fun generatorFor(min: Int, max: Int) = object : Generator {
+    object generators {
+        private fun generatorFor(min: Int, max: Int) = object : Generator {
             override fun mk(type: Type, databob: Databob): Any? =
                     if (type == CollectionSizeRange::class.defaultType.javaType) {
                         CollectionSizeRange(min, max)
@@ -22,16 +22,14 @@ data class CollectionSizeRange(val min: Int, val max: Int) {
                         null
                     }
         }
-    }
 
-    object generators {
-        val empty = s.generatorFor(0, 0)
+        val empty = generatorFor(0, 0)
 
-        fun exactly(value: Int): Generator = s.generatorFor(value, value)
+        fun exactly(value: Int): Generator = generatorFor(value, value)
 
-        fun between(min: Int, max: Int): Generator = s.generatorFor(min, max)
+        fun between(min: Int, max: Int): Generator = generatorFor(min, max)
 
-        fun atMost(max: Int): Generator = s.generatorFor(0, max)
+        fun atMost(max: Int): Generator = generatorFor(0, max)
     }
 
     fun toRandomRange(): IntRange = when {

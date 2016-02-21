@@ -7,7 +7,7 @@ import java.lang.reflect.Type
 class CompositeGenerator (private val generators: List<Generator>) : Generator {
     constructor() : this(listOf())
 
-    fun with(newGenerator: Generator): CompositeGenerator = CompositeGenerator(generators.plus(newGenerator))
+    fun with(newGenerator: Generator): CompositeGenerator = CompositeGenerator(listOf(newGenerator).plus(generators))
 
     override fun mk(type: Type, databob: Databob): Any? = generators.find { it.mk(type, databob) != null }?.mk(type, databob)
 }

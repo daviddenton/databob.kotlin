@@ -1,6 +1,7 @@
 package io.github.databob.unit
 
 import io.github.databob.Databob
+import io.github.databob.generators.CoinToss
 import org.funktionale.option.Option
 import org.junit.Test
 import java.math.BigDecimal
@@ -88,7 +89,7 @@ class DatabobTest {
 
     @Test
     fun support_nullable_lists() {
-        val mk = Databob().mk(NullableListContainer::class)
+        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullableListContainer::class)
 
         assertTrue(mk is NullableListContainer)
         assertTrue(mk.s is List<String>)
@@ -96,14 +97,14 @@ class DatabobTest {
 
     @Test
     fun support_nullable_containers() {
-        val mk = Databob().mk(NullableContainer::class)
+        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullableContainer::class)
         assertTrue(mk is NullableContainer)
         assertTrue(mk.s is IntAndString)
     }
 
     @Test
     fun support_nullable_primitives() {
-        val mk = Databob().mk(NullablePrimitiveContainer::class)
+        val mk = Databob(CoinToss.instances.alwaysHeads).mk(NullablePrimitiveContainer::class)
 
         assertTrue(mk is NullablePrimitiveContainer)
         assertTrue(mk.s is String)
