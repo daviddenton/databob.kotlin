@@ -5,7 +5,7 @@ import io.github.databob.Generator
 import io.github.databob.Generators
 import java.lang.reflect.Type
 
-class LanugageConstructsGenerator : Generator {
+class LanguageConstructsGenerator : Generator {
 
     private val generator = CompositeGenerator(
             Generators.ofType { d -> Exception(d.mk(String::class)) },
