@@ -2,16 +2,6 @@ package examples
 
 import io.github.databob.Databob
 import io.github.databob.Generators
-import org.funktionale.option.Option
-import java.time.ZonedDateTime
-
-data class ReadReceipt(val read: Boolean)
-
-data class EmailAddress(val value: String)
-
-data class Email(val from: EmailAddress, val to: List<EmailAddress>, val date: ZonedDateTime, val read: Boolean, val subject: String, val readReceipt: Option<ReadReceipt>)
-
-data class Inbox(val address: EmailAddress, val emails: List<Email>)
 
 class InboxBuilder {
     private var address = EmailAddress("some@email.address.com")
