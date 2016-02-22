@@ -4,8 +4,6 @@ import org.funktionale.either.Either
 import org.funktionale.option.Option
 import java.util.*
 import java.util.stream.Stream
-import kotlin.reflect.defaultType
-import kotlin.reflect.jvm.javaType
 
 data class FunktionaleOption(val v: Option<IntAndString>)
 

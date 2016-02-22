@@ -193,7 +193,7 @@ class DatabobTest {
     }
 
     @Test
-    fun support_funktionale_either() {
+    fun support_funktionale_either_happy() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<FunktionaleEither>()
         assertTrue(mk is FunktionaleEither)
         assertTrue(mk.v is Either.Right<IntAndString, Container>)
@@ -201,5 +201,15 @@ class DatabobTest {
         assertTrue(mk.v.right().get().v is IntAndString)
         assertTrue(mk.v.right().get().v.num is Int)
         assertTrue(mk.v.right().get().v.s is String)
+    }
+
+    @Test
+    fun support_funktionale_either_sad() {
+        val mk = Databob(CoinToss.generators.alwaysTails).mk<FunktionaleEither>()
+        assertTrue(mk is FunktionaleEither)
+        assertTrue(mk.v is Either.Left<IntAndString, Container>)
+        assertTrue(mk.v.left().get() is IntAndString)
+        assertTrue(mk.v.left().get().num is Int)
+        assertTrue(mk.v.left().get().s is String)
     }
 }
