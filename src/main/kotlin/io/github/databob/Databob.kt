@@ -9,10 +9,10 @@ import kotlin.reflect.jvm.javaType
 class Databob(vararg overrides: Generator) {
     private val defaults = listOf(
             LanguageConstructsGenerator(),
-            PrimitiveGenerator(),
             DateTimeGenerator.instances.random,
             FunktionaleGenerator(),
             CollectionGenerator.instances.random,
+            PrimitiveGenerator(),
             CoinToss.generators.even)
 
     private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
@@ -20,10 +20,7 @@ class Databob(vararg overrides: Generator) {
     fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
 
     @Suppress("UNCHECKED_CAST")
-    fun <R : Any> mk(c: Class<R>): R = when {
-        c.isEnum -> c.enumConstants[0]
-        else -> (generator.mk(c.kotlin.defaultType.javaType, this) ?: fallback(c)) as R
-    }
+    fun <R : Any> mk(c: Class<R>): R = (generator.mk(c.kotlin.defaultType.javaType, this) ?: fallback(c)) as R
 
     private fun <R : Any> fallback(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
