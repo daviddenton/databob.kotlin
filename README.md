@@ -87,26 +87,27 @@ No sharing of test data across tests. <b>Ever</b>.
 #### Enter Databob
 For a completely randomised instance, including non-primitive sub-tree objects:
 ```kotlin
-Databob().mk(Email::class)
+Databob().mk<Email>()
 ```
 
 That's it. Want to override particular value(s)?
 ```kotlin
-Databob().mk(Email::class).copy(from = EmailAddress("my@real.email.com"))
+Databob().mk<Email>().copy(from = EmailAddress("my@real.email.com"))
 ```
 
 Or add your own rule for generating values?
 ```kotlin
-val override = Generators.ofType { databob -> EmailAddress(databob.mk(String::class) + "@" + databob.mk(String::class) + ".com") }
 
-Databob(override).mk(Email::class)
+val override = Generators.ofType { databob -> EmailAddress(databob.mk<String>() + "@" + databob.mk<String>() + ".com") }
+
+Databob(override).mk<Email>()
 ```
 
 ### Out-of-the-box features:
 - Nested object-trees (ie. non-primitive fields)
 - Kotlin/Java primitives/Enums
 - Kotlin and Java8 Collection classes
-- Java8 date-time values
+- Java8 DateTime types
 - Bindings for [Funktionale](https://github.com/MarioAriasC/funKTionale) monadic types (Option/Either)
 - Simple overriding mechanism for your own-types and custom generation rules
 
