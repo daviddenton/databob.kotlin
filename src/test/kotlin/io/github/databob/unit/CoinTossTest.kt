@@ -1,7 +1,7 @@
 package io.github.databob.unit
 
 import io.github.databob.Databob
-import io.github.databob.generators.CoinToss
+import io.github.databob.CoinToss
 import org.junit.Test
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType

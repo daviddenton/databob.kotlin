@@ -1,4 +1,4 @@
-package io.github.databob.generators
+package io.github.databob
 
 import io.github.databob.Databob
 import io.github.databob.Generator

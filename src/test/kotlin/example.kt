@@ -1,6 +1,5 @@
 import io.github.databob.Databob
 
-
 data class ChildContainer(val myString: String, val myNum: Int)
 
 data class ParentContainer(val child: ChildContainer)
@@ -11,12 +10,12 @@ fun main(args: Array<String>) {
 
     val databob = Databob()
 
-    println(databob.mk(GrandparentContainer::class))
+    println(databob.mk<GrandparentContainer>())
 
-    println(databob.mk(ChildContainer::class))
+    println(databob.mk<ChildContainer>())
 
     println(
-            databob.mk(ChildContainer::class)
+            databob.mk<ChildContainer>()
                     .copy(myString = "overwritten")
     )
 }

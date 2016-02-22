@@ -1,7 +1,5 @@
 package io.github.databob
 
-import io.github.databob.generators.*
-import kotlin.reflect.KClass
 import kotlin.reflect.KParameter
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
@@ -17,7 +15,9 @@ class Databob(vararg overrides: Generator) {
 
     private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 
-    fun <R : Any> mk(c: KClass<R>): R = mk(c.java)
+    inline fun <reified R : Any> mk(): R {
+        return mk(R::class.java)
+    }
 
     @Suppress("UNCHECKED_CAST")
     fun <R : Any> mk(c: Class<R>): R = (generator.mk(c.kotlin.defaultType.javaType, this) ?: fallback(c)) as R
@@ -27,7 +27,7 @@ class Databob(vararg overrides: Generator) {
         val generatedParameters = constructor.parameters
                 .map {
                     if (it.type.isMarkedNullable) {
-                        if (mk(CoinToss::class).toss()) {
+                        if (mk<CoinToss>().toss()) {
                             convert(it)
                         } else {
                             null

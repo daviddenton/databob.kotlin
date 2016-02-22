@@ -48,12 +48,12 @@ class EvenBetterInboxBuilder private constructor(private val inbox: Inbox) {
     fun build() = inbox
 }
 
-val a = Databob().mk(Email::class)
+val a = Databob().mk<Email>()
 
-val b = Databob().mk(Email::class).copy(from = EmailAddress("my@real.email.com"))
+val b = Databob().mk<Email>().copy(from = EmailAddress("my@real.email.com"))
 
-val override = Generators.ofType { databob -> EmailAddress(databob.mk(String::class) + "@" + databob.mk(String::class) + ".com") }
+val override = Generators.ofType { databob -> EmailAddress(databob.mk<String>() + "@" + databob.mk<String>() + ".com") }
 
-val c = Databob(override).mk(Email::class)
+val c = Databob(override).mk<Email>()
 
 

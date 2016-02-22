@@ -3,7 +3,7 @@ package io.github.databob.unit
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.isWithin
-import io.github.databob.generators.CollectionSizeRange
+import io.github.databob.CollectionSizeRange
 import org.junit.Test
 import kotlin.test.assertFails
 import kotlin.test.assertTrue

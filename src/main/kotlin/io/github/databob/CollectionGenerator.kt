@@ -1,10 +1,10 @@
-package io.github.databob.generators
+package io.github.databob
 
 import io.github.databob.Databob
 import io.github.databob.Generator
 import io.github.databob.Generators
 import java.lang.reflect.Type
-import java.util.*
+import java.util.*import java.util.stream.Stream
 
 class CollectionGenerator : Generator {
 
@@ -14,7 +14,7 @@ class CollectionGenerator : Generator {
     object instances {
         val random = CompositeGenerator(listOf(
                 Generators.ofType { d ->
-                    if (d.mk(CoinToss::class).toss()) {
+                    if (d.mk<CoinToss>().toss()) {
                         CollectionSizeRange(1, 5)
                     } else CollectionSizeRange(0, 0)
                 },
@@ -33,14 +33,14 @@ class CollectionGenerator : Generator {
     private fun ctr(databob: Databob, type: Type): Any = databob.mk(Class.forName(type.typeName))
 
     private inline fun <reified T> construct(databob: Databob, ctrFn: () -> T): Array<T> {
-        return databob.mk(CollectionSizeRange::class).toRandomRange().map { ctrFn() }.toTypedArray()
+        return databob.mk<CollectionSizeRange>().toRandomRange().map { ctrFn() }.toTypedArray()
     }
 
     private val generator = CompositeGenerator(
             Generators.ofType { t, d -> setOf(*construct (d) { ctr(d, t[0]) }) },
             Generators.ofType { t, d -> listOf(*construct (d) { ctr(d, t[0]) }) },
             Generators.ofType { t, d -> Vector(listOf(*construct (d) { ctr(d, t[0]) })) },
-            Generators.ofType { t, d -> java.util.stream.Stream.of(*construct (d) { ctr(d, t[0]) }) },
+            Generators.ofType { t, d -> Stream.of(*construct (d) { ctr(d, t[0]) }) },
             Generators.ofType { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) }
     )
 

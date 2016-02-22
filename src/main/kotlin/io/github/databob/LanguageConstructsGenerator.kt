@@ -1,4 +1,4 @@
-package io.github.databob.generators
+package io.github.databob
 
 import io.github.databob.Databob
 import io.github.databob.Generator
@@ -8,8 +8,8 @@ import java.lang.reflect.Type
 class LanguageConstructsGenerator : Generator {
 
     private val generator = CompositeGenerator(
-            Generators.ofType { d -> Exception(d.mk(String::class)) },
-            Generators.ofType { d -> RuntimeException(d.mk(String::class)) },
+            Generators.ofType { d -> Exception(d.mk<String>()) },
+            Generators.ofType { d -> RuntimeException(d.mk<String>()) },
             object : Generator {
                 override fun mk(type: Type, databob: Databob): Any? = when {
                     Class.forName(type.typeName).isEnum -> Class.forName(type.typeName).enumConstants[0]
