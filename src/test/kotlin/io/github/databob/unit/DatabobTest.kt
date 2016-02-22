@@ -180,6 +180,7 @@ class DatabobTest {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk(FunktionaleOption::class)
         assertTrue(mk is FunktionaleOption)
         assertTrue(mk.v is Option<IntAndString>)
+        assertTrue(mk.v.get().s is String)
     }
 
     @Test
@@ -187,5 +188,9 @@ class DatabobTest {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk(FunktionaleEither::class)
         assertTrue(mk is FunktionaleEither)
         assertTrue(mk.v is Either.Right<IntAndString, Container>)
+        assertTrue(mk.v.right().get() is Container)
+        assertTrue(mk.v.right().get().v is IntAndString)
+        assertTrue(mk.v.right().get().v.num is Int)
+        assertTrue(mk.v.right().get().v.s is String)
     }
 }
