@@ -46,8 +46,3 @@ class AnInterfaceImpl : AnInterface {}
 enum class AnEnum {
     NORTH, SOUTH, WEST, EAST
 }
-
-fun main(args: Array<String>) {
-    AnEnum::class.java.isEnum
-    println(AnEnum::class.defaultType.javaType)
-}
