@@ -1,8 +1,8 @@
 package io.github.databob.unit
 
+import io.github.databob.CoinToss
 import io.github.databob.Databob
 import io.github.databob.Generators
-import io.github.databob.CoinToss
 import org.funktionale.either.Either
 import org.funktionale.option.Option
 import org.junit.Test
@@ -12,6 +12,7 @@ import java.sql.Timestamp
 import java.time.*
 import java.util.*
 import java.util.stream.Stream
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class DatabobTest {
@@ -176,11 +177,19 @@ class DatabobTest {
     }
 
     @Test
-    fun support_funktionale_option() {
+    fun support_funktionale_option_happy() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<FunktionaleOption>()
         assertTrue(mk is FunktionaleOption)
         assertTrue(mk.v is Option<IntAndString>)
         assertTrue(mk.v.get().s is String)
+    }
+
+    @Test
+    fun support_funktionale_option_sad() {
+        val mk = Databob(CoinToss.generators.alwaysTails).mk<FunktionaleOption>()
+        assertTrue(mk is FunktionaleOption)
+        assertTrue(mk.v is Option<IntAndString>)
+        assertEquals(mk.v.isEmpty(), true)
     }
 
     @Test
