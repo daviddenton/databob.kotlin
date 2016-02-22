@@ -1,13 +1,6 @@
 package io.github.databob
 
-import io.github.databob.Databob
-import io.github.databob.Generator
-import org.funktionale.either.Either
 import org.funktionale.either.toRight
-import org.funktionale.option.Option
-import org.funktionale.option.Option.Some
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 import kotlin.reflect.defaultType
 import kotlin.reflect.jvm.javaType
 

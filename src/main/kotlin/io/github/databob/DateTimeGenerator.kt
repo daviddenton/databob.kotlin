@@ -1,8 +1,5 @@
 package io.github.databob
 
-import io.github.databob.Databob
-import io.github.databob.Generator
-import io.github.databob.Generators
 import java.lang.reflect.Type
 import java.sql.Timestamp
 import java.time.*

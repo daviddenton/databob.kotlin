@@ -1,7 +1,5 @@
 package io.github.databob
 
-import io.github.databob.Databob
-import io.github.databob.Generator
 import java.lang.reflect.Type
 
 class CompositeGenerator (private val generators: List<Generator>) : Generator {

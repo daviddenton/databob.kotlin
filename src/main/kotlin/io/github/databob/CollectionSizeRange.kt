@@ -1,7 +1,5 @@
 package io.github.databob
 
-import io.github.databob.Generator
-import io.github.databob.Generators
 import java.util.*
 
 class CollectionSizeRange(private val min: Int, private val max: Int) {
