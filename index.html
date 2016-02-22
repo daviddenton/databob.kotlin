@@ -1,36 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Databob.kotlin : Randomised, zero-boilerplate object builders">
+    <title>Databob.kotlin by daviddenton</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Databob.kotlin</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Databob.kotlin</h1>
+        <p class="header">Randomised, zero-boilerplate object builders</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/daviddenton/databob.kotlin">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/daviddenton/databob.kotlin/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/daviddenton/databob.kotlin/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/daviddenton/databob.kotlin">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">Databob.kotlin</h1>
-          <h2 id="project_tagline">Randomised, zero-boilerplate object builders</h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/daviddenton">daviddenton</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/daviddenton/databob.kotlin/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/daviddenton/databob.kotlin/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+      </header>
+      <section>
         <h1>
 <a id="databobkotlin" class="anchor" href="#databobkotlin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>databob.kotlin</h1>
 
@@ -121,17 +120,18 @@ to suit particular tests.</p>
 
 <p>For a completely randomised instance, including non-primitive sub-tree objects:</p>
 
-<div class="highlight highlight-source-Kotlin"><pre>Databob()<span class="pl-k">.</span>mk(Email<span class="pl-k">::</span>class)</pre></div>
+<div class="highlight highlight-source-Kotlin"><pre>Databob()<span class="pl-k">.</span>mk&lt;Email&gt;()</pre></div>
 
 <p>That's it. Want to override particular value(s)?</p>
 
-<div class="highlight highlight-source-Kotlin"><pre>Databob()<span class="pl-k">.</span>mk(Email<span class="pl-k">::</span>class)<span class="pl-k">.</span>copy(from <span class="pl-k">=</span> EmailAddress(<span class="pl-s"><span class="pl-pds">"</span>my@real.email.com<span class="pl-pds">"</span></span>))</pre></div>
+<div class="highlight highlight-source-Kotlin"><pre>Databob()<span class="pl-k">.</span>mk&lt;Email&gt;()<span class="pl-k">.</span>copy(from <span class="pl-k">=</span> EmailAddress(<span class="pl-s"><span class="pl-pds">"</span>my@real.email.com<span class="pl-pds">"</span></span>))</pre></div>
 
 <p>Or add your own rule for generating values?</p>
 
-<div class="highlight highlight-source-Kotlin"><pre><span class="pl-k">val</span> <span class="pl-en">override</span> <span class="pl-k">=</span> Generators<span class="pl-k">.</span>ofType { databob <span class="pl-k">-&gt;</span> EmailAddress(databob<span class="pl-k">.</span>mk(<span class="pl-k">String</span><span class="pl-k">::</span>class) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>@<span class="pl-pds">"</span></span> <span class="pl-k">+</span> databob<span class="pl-k">.</span>mk(<span class="pl-k">String</span><span class="pl-k">::</span>class) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>.com<span class="pl-pds">"</span></span>) }
+<div class="highlight highlight-source-Kotlin"><pre>
+<span class="pl-k">val</span> <span class="pl-en">override</span> <span class="pl-k">=</span> Generators<span class="pl-k">.</span>ofType { databob <span class="pl-k">-&gt;</span> EmailAddress(databob<span class="pl-k">.</span>mk&lt;<span class="pl-k">String</span>&gt;() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>@<span class="pl-pds">"</span></span> <span class="pl-k">+</span> databob<span class="pl-k">.</span>mk&lt;<span class="pl-k">String</span>&gt;() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>.com<span class="pl-pds">"</span></span>) }
 
-Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk(Email<span class="pl-k">::</span>class)</pre></div>
+Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk&lt;Email&gt;()</pre></div>
 
 <h3>
 <a id="out-of-the-box-features" class="anchor" href="#out-of-the-box-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Out-of-the-box features:</h3>
@@ -140,7 +140,7 @@ Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk(Email<s
 <li>Nested object-trees (ie. non-primitive fields)</li>
 <li>Kotlin/Java primitives/Enums</li>
 <li>Kotlin and Java8 Collection classes</li>
-<li>Java8 date-time values</li>
+<li>Java8 DateTime types</li>
 <li>Bindings for <a href="https://github.com/MarioAriasC/funKTionale">Funktionale</a> monadic types (Option/Either)</li>
 <li>Simple overriding mechanism for your own-types and custom generation rules</li>
 </ul>
@@ -166,17 +166,12 @@ Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk(Email<s
 
 <p>PRs gratefully accepted for generators for other common Library types that might be useful. Note the idea is for the library to NOT depend on any other libraries, but to simply ship the bindings to plug them in.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Databob.kotlin maintained by <a href="https://github.com/daviddenton">daviddenton</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-              <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -186,7 +181,6 @@ Databob(<span class="pl-k">override</span>)<span class="pl-k">.</span>mk(Email<s
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
