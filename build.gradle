@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.3'
+    ext.kotlin_version = '1.0.2'
 
     repositories {
         mavenCentral()
@@ -50,10 +50,10 @@ description = 'Kill all builders!'
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile "org.funktionale:funktionale:0.9"
+    provided "org.funktionale:funktionale:0.8"
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testCompile 'junit:junit:4.12'
-    testCompile 'com.natpryce:hamkrest:1.2.1.0'
+    testCompile 'com.natpryce:hamkrest:1.1.0.0'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
