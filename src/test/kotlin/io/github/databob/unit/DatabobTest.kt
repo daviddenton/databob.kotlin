@@ -8,6 +8,7 @@ import org.funktionale.option.Option
 import org.junit.Test
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.net.URL
 import java.sql.Timestamp
 import java.time.*
 import java.util.*
@@ -17,43 +18,52 @@ import kotlin.test.assertTrue
 
 class DatabobTest {
 
+    private inline fun <reified T : Any> assertSupports() = assertTrue(Databob().mk<T>() is T)
+
     private val interfaceGenerator = Generators.ofType<AnInterface> { -> AnInterfaceImpl() }
 
     @Test
     fun support_primitives() {
-        assertTrue(Databob().mk<Boolean>() is Boolean)
-        assertTrue(Databob().mk<Byte>() is Byte)
-        assertTrue(Databob().mk<String>() is String)
-        assertTrue(Databob().mk<Char>() is Char)
+        assertSupports<Boolean>()
+        assertSupports<Byte>()
+        assertSupports<String>()
+        assertSupports<Char>()
 
-        assertTrue(Databob().mk<Int>() is Int)
-        assertTrue(Databob().mk<Short>() is Short)
-        assertTrue(Databob().mk<Long>() is Long)
-        assertTrue(Databob().mk<BigInteger>() is BigInteger)
+        assertSupports<Int>()
+        assertSupports<Short>()
+        assertSupports<Long>()
+        assertSupports<BigInteger>()
 
-        assertTrue(Databob().mk<Double>() is Double)
-        assertTrue(Databob().mk<Float>() is Float)
-        assertTrue(Databob().mk<BigDecimal>() is BigDecimal)
+        assertSupports<Double>()
+        assertSupports<Float>()
+        assertSupports<BigDecimal>()
 
-        assertTrue(Databob().mk<Exception>() is Exception)
-        assertTrue(Databob().mk<RuntimeException>() is RuntimeException)
+        assertSupports<Exception>()
+        assertSupports<RuntimeException>()
+    }
+
+    @Test
+    fun support_jdkCommons() {
+        assertSupports<URL>()
+        assertSupports<Exception>()
+        assertSupports<RuntimeException>()
     }
 
     @Test
     fun support_date_times() {
 
-        assertTrue(Databob().mk<ZoneId>() is ZoneId)
-        assertTrue(Databob().mk<Date>() is Date)
-        assertTrue(Databob().mk<LocalTime>() is LocalTime)
-        assertTrue(Databob().mk<LocalDate>() is LocalDate)
+        assertSupports<ZoneId>()
+        assertSupports<Date>()
+        assertSupports<LocalTime>()
+        assertSupports<LocalDate>()
 
-        assertTrue(Databob().mk<LocalDateTime>() is LocalDateTime)
-        assertTrue(Databob().mk<ZonedDateTime>() is ZonedDateTime)
-        assertTrue(Databob().mk<java.sql.Date>() is java.sql.Date)
-        assertTrue(Databob().mk<Timestamp>() is Timestamp)
+        assertSupports<LocalDateTime>()
+        assertSupports<ZonedDateTime>()
+        assertSupports<java.sql.Date>()
+        assertSupports<Timestamp>()
 
-        assertTrue(Databob().mk<Duration>() is Duration)
-        assertTrue(Databob().mk<Period>() is Period)
+        assertSupports<Duration>()
+        assertSupports<Period>()
     }
 
     @Test

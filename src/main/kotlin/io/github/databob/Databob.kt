@@ -11,6 +11,7 @@ class Databob(vararg overrides: Generator) {
             FunktionaleGenerator(),
             CollectionGenerator.instances.random,
             PrimitiveGenerator(),
+            JdkCommonsGenerator(),
             CoinToss.generators.even)
 
     private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
