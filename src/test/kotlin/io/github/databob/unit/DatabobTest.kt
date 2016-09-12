@@ -6,6 +6,10 @@ import io.github.databob.Generators
 import org.funktionale.either.Either
 import org.funktionale.option.Option
 import org.junit.Test
+import java.io.File
+import java.io.PrintStream
+import java.io.Reader
+import java.io.Writer
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.net.URL
@@ -47,6 +51,11 @@ class DatabobTest {
         assertSupports<URL>()
         assertSupports<Exception>()
         assertSupports<RuntimeException>()
+        assertSupports<UUID>()
+        assertSupports<File>()
+        assertSupports<Reader>()
+        assertSupports<Writer>()
+        assertSupports<PrintStream>()
     }
 
     @Test
