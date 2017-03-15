@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.2'
+    ext.kotlin_version = '1.1.0'
 
     repositories {
         mavenCentral()
@@ -16,7 +16,7 @@ buildscript {
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.1"
+    id "com.jfrog.bintray" version "1.7.3"
     id 'net.saliman.cobertura' version '2.2.5'
     id 'com.github.kt3k.coveralls' version '2.0.1'
 }
@@ -48,7 +48,7 @@ group = 'io.github.daviddenton'
 description = 'Kill all builders!'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     provided "org.funktionale:funktionale:0.8"
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
