@@ -39,7 +39,7 @@ data class NullableEnumContainer(val s: AnEnum?)
 
 interface AnInterface
 
-class AnInterfaceImpl : AnInterface {}
+class AnInterfaceImpl : AnInterface
 
 enum class AnEnum {
     NORTH, SOUTH, WEST, EAST
