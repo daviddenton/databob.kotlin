@@ -12,7 +12,7 @@ class DateTimeGenerator : Generator {
      */
     object instances {
         private val defaults = CompositeGenerator(
-                Generators.ofType { d -> ZoneId.systemDefault() },
+                Generators.ofType { -> ZoneId.systemDefault() },
                 Generators.ofType { d -> LocalDateTime.of(d.mk<LocalDate>(), d.mk<LocalTime>()) },
                 Generators.ofType { d -> ZonedDateTime.of(d.mk<LocalDateTime>(), d.mk<ZoneId>()) },
                 Generators.ofType { d -> java.sql.Date(d.mk<Date>().time) },

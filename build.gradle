@@ -50,10 +50,12 @@ description = 'Kill all builders!'
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    provided "org.funktionale:funktionale:0.8"
+    provided("org.funktionale:funktionale-all:1.0.0-final") {
+        exclude group: "org.jetbrains.kotlin"
+    }
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testCompile 'junit:junit:4.12'
-    testCompile 'com.natpryce:hamkrest:1.1.0.0'
+    testCompile 'com.natpryce:hamkrest:1.3.0.0'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
