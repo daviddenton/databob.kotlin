@@ -11,7 +11,6 @@ class CoinTossTest {
 
     @Test
     fun alwaysHeads() {
-        CoinToss::class.defaultType
         assertTrue(IntRange(0, 100)
             .map { CoinToss.generators.alwaysHeads.mk(CoinToss::class.defaultType.javaType, Databob()) as CoinToss }
             .map { it.toss() }
