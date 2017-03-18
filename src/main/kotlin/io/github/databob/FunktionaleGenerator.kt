@@ -7,7 +7,7 @@ import org.funktionale.option.Option
 import org.funktionale.option.toOption
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.defaultType
+import kotlin.reflect.full.defaultType
 import kotlin.reflect.jvm.javaType
 
 class FunktionaleGenerator : io.github.databob.Generator {

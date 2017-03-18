@@ -1,7 +1,7 @@
 package io.github.databob
 
 import kotlin.reflect.KParameter
-import kotlin.reflect.defaultType
+import kotlin.reflect.full.defaultType
 import kotlin.reflect.jvm.javaType
 
 class Databob(vararg overrides: Generator) {
