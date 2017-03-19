@@ -7,7 +7,7 @@ import kotlin.reflect.jvm.javaType
 
 object Generators {
 
-   inline fun <reified T> ofType(crossinline fn: (Array<Type>, Databob) -> T): Generator {
+    inline fun <reified T> ofType(crossinline fn: (Array<Type>, Databob) -> T): Generator {
         return object : Generator {
             override fun mk(type: Type, databob: Databob): Any? = when {
                 type is ParameterizedType && T::class.defaultType.javaType == type.rawType -> {

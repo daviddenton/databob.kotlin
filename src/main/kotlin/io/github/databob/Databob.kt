@@ -6,13 +6,13 @@ import kotlin.reflect.jvm.javaType
 
 class Databob(vararg overrides: Generator) {
     private val defaults = listOf(
-            LanguageConstructsGenerator(),
-            DateTimeGenerator.instances.random,
-            FunktionaleGenerator(),
-            CollectionGenerator.instances.random,
-            PrimitiveGenerator(),
-            JdkCommonsGenerator(),
-            CoinToss.generators.even)
+        LanguageConstructsGenerator(),
+        DateTimeGenerator.instances.random,
+        FunktionaleGenerator(),
+        CollectionGenerator.instances.random,
+        PrimitiveGenerator(),
+        JdkCommonsGenerator(),
+        CoinToss.generators.even)
 
     private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
 
@@ -26,17 +26,17 @@ class Databob(vararg overrides: Generator) {
     private fun <R : Any> fallback(c: Class<R>): R {
         val constructor = c.kotlin.constructors.iterator().next()
         val generatedParameters = constructor.parameters
-                .map {
-                    if (it.type.isMarkedNullable) {
-                        if (mk<CoinToss>().toss()) {
-                            convert(it)
-                        } else {
-                            null
-                        }
-                    } else {
+            .map {
+                if (it.type.isMarkedNullable) {
+                    if (mk<CoinToss>().toss()) {
                         convert(it)
+                    } else {
+                        null
                     }
+                } else {
+                    convert(it)
                 }
+            }
         return constructor.call(*generatedParameters.toTypedArray())
     }
 

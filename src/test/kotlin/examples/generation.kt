@@ -1,8 +1,8 @@
 package examples
 
+import io.github.databob.CollectionSizeRange
 import io.github.databob.Databob
 import io.github.databob.Generators
-import io.github.databob.CollectionSizeRange
 import org.funktionale.option.Option
 import java.time.ZonedDateTime
 
@@ -33,7 +33,7 @@ fun main(args: Array<String>) {
 
     fun usingACustomGenerator(): Email {
         return Databob(
-                Generators.ofType { databob -> EmailAddress(Databob().mk<String>() + "@" + Databob().mk<String>() + ".com") }
+            Generators.ofType { databob -> EmailAddress(Databob().mk<String>() + "@" + Databob().mk<String>() + ".com") }
         ).mk<Email>()
     }
 

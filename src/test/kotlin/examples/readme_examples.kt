@@ -23,7 +23,7 @@ class InboxBuilder {
 class BetterInboxBuilder {
     private var inbox = Inbox(EmailAddress("some@email.address.com"), listOf<Email>())
 
-    fun withAddress(newAddress: EmailAddress) : BetterInboxBuilder {
+    fun withAddress(newAddress: EmailAddress): BetterInboxBuilder {
         inbox = inbox.copy(address = newAddress)
         return this
     }
