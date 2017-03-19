@@ -2,7 +2,7 @@ package io.github.databob
 
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.defaultType
+import kotlin.reflect.full.defaultType
 import kotlin.reflect.jvm.javaType
 
 object Generators {

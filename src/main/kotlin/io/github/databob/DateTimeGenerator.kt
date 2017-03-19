@@ -41,7 +41,7 @@ class DateTimeGenerator : Generator {
     }
 
     private val generator = CompositeGenerator(
-        Generators.ofType { d -> ZoneId.systemDefault() },
+        Generators.ofType { -> ZoneId.systemDefault() },
         Generators.ofType { d -> Date(d.mk<Long>()) },
         Generators.ofType { d -> LocalTime.ofNanoOfDay(d.mk<Int>().toLong()) },
         Generators.ofType { d -> LocalDate.ofEpochDay(d.mk<Short>().toLong()) },

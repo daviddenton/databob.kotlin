@@ -14,7 +14,7 @@ class Databob(vararg overrides: Generator) {
         JdkCommonsGenerator(),
         CoinToss.generators.even)
 
-    private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator()) { memo, next -> memo.with(next) }
+    private val generator = defaults.plus(overrides.toList()).fold(CompositeGenerator(), CompositeGenerator::with)
 
     inline fun <reified R : Any> mk(): R {
         return mk(R::class.java)
