@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.1.2'
 
     repositories {
         mavenCentral()
@@ -34,8 +34,8 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'provided-base'
 
-cobertura.coverageFormats = ['html', 'xml']
-cobertura.coverageSourceDirs = ['src/main/kotlin']
+    cobertura.coverageFormats = ['html', 'xml']
+    cobertura.coverageSourceDirs = ['src/main/kotlin']
 
 archivesBaseName = 'databob.kotlin'
 

@@ -2,7 +2,14 @@ package io.github.databob
 
 import java.lang.reflect.Type
 import java.sql.Timestamp
-import java.time.*
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Period
+import java.time.Year
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class DateTimeGenerator : Generator {
@@ -13,6 +20,9 @@ class DateTimeGenerator : Generator {
     object instances {
         private val defaults = CompositeGenerator(
             Generators.ofType { -> ZoneId.systemDefault() },
+            Generators.ofType { d -> Year.of(d.mk<LocalDateTime>().year) },
+            Generators.ofType { d -> d.mk<LocalDateTime>().dayOfWeek },
+            Generators.ofType { d -> d.mk<LocalDateTime>().month },
             Generators.ofType { d -> LocalDateTime.of(d.mk<LocalDate>(), d.mk<LocalTime>()) },
             Generators.ofType { d -> ZonedDateTime.of(d.mk<LocalDateTime>(), d.mk<ZoneId>()) },
             Generators.ofType { d -> java.sql.Date(d.mk<Date>().time) },
@@ -25,7 +35,7 @@ class DateTimeGenerator : Generator {
             Generators.ofType { d -> Date(d.mk<Long>()) },
             Generators.ofType { d -> LocalTime.ofNanoOfDay(d.mk<Int>().toLong()) },
             Generators.ofType { d -> LocalDate.ofEpochDay(d.mk<Int>().toLong()) }
-        ).with(defaults)
+            ).with(defaults)
 
         val now = CompositeGenerator(
             Generators.ofType { -> Date() },

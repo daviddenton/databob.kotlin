@@ -14,7 +14,16 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.net.URL
 import java.sql.Timestamp
-import java.time.*
+import java.time.DayOfWeek
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Month
+import java.time.Period
+import java.time.Year
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 import java.util.stream.Stream
 import kotlin.test.assertEquals
@@ -25,6 +34,12 @@ class DatabobTest {
     private inline fun <reified T : Any> assertSupports() = assertTrue(Databob().mk<T>() is T)
 
     private val interfaceGenerator = Generators.ofType<AnInterface> { -> AnInterfaceImpl() }
+
+    data class Bob(val date: LocalDateTime)
+    @Test
+    fun `bob`() {
+        Databob().mk<Bob>()
+    }
 
     @Test
     fun support_primitives() {
@@ -60,6 +75,9 @@ class DatabobTest {
 
     @Test
     fun support_date_times() {
+        assertSupports<Year>()
+        assertSupports<Month>()
+        assertSupports<DayOfWeek>()
 
         assertSupports<ZoneId>()
         assertSupports<Date>()
