@@ -1,6 +1,7 @@
 package io.github.databob
 
-import java.lang.reflect.Type
+import kotlin.reflect.KType
+import kotlin.reflect.jvm.javaType
 
 class LanguageConstructsGenerator : Generator {
 
@@ -8,12 +9,12 @@ class LanguageConstructsGenerator : Generator {
         Generators.ofType { d -> Exception(d.mk<String>()) },
         Generators.ofType { d -> RuntimeException(d.mk<String>()) },
         object : Generator {
-            override fun mk(type: Type, databob: Databob): Any? = when {
-                Class.forName(type.typeName).isEnum -> Class.forName(type.typeName).enumConstants[0]
+            override fun mk(type: KType, databob: Databob): Any? = when {
+                    Class.forName(type.javaType.typeName).isEnum -> Class.forName(type.javaType.typeName).enumConstants[0]
                 else -> null
             }
         }
     )
 
-    override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)
+    override fun mk(type: KType, databob: Databob): Any? = generator.mk(type, databob)
 }

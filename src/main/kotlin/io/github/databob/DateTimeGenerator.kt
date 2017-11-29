@@ -1,6 +1,5 @@
 package io.github.databob
 
-import java.lang.reflect.Type
 import java.sql.Timestamp
 import java.time.Duration
 import java.time.LocalDate
@@ -10,7 +9,8 @@ import java.time.Period
 import java.time.Year
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.*
+import java.util.Date
+import kotlin.reflect.KType
 
 class DateTimeGenerator : Generator {
 
@@ -63,5 +63,5 @@ class DateTimeGenerator : Generator {
         Generators.ofType { d -> Period.between(d.mk<LocalDate>(), d.mk<LocalDate>()) }
     )
 
-    override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)
+    override fun mk(type: KType, databob: Databob): Any? = generator.mk(type, databob)
 }

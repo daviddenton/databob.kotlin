@@ -1,9 +1,14 @@
 package io.github.databob
 
-import java.io.*
-import java.lang.reflect.Type
+import java.io.File
+import java.io.PrintStream
+import java.io.Reader
+import java.io.StringReader
+import java.io.StringWriter
+import java.io.Writer
 import java.net.URL
-import java.util.*
+import java.util.UUID
+import kotlin.reflect.KType
 
 class JdkCommonsGenerator : Generator {
 
@@ -18,5 +23,5 @@ class JdkCommonsGenerator : Generator {
         Generators.ofType { d -> File(d.mk<String>()) }
     )
 
-    override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)
+    override fun mk(type: KType, databob: Databob): Any? = generator.mk(type, databob)
 }

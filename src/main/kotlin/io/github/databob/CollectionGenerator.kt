@@ -1,8 +1,9 @@
 package io.github.databob
 
 import java.lang.reflect.Type
-import java.util.*
+import java.util.Vector
 import java.util.stream.Stream
+import kotlin.reflect.KType
 
 class CollectionGenerator : Generator {
 
@@ -42,5 +43,5 @@ class CollectionGenerator : Generator {
         Generators.ofType { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) }
     )
 
-    override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)
+    override fun mk(type: KType, databob: Databob): Any? = generator.mk(type, databob)
 }

@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.2'
+    ext.kotlin_version = '1.2.0'
 
     repositories {
         mavenCentral()
@@ -48,7 +48,7 @@ group = 'io.github.daviddenton'
 description = 'Kill all builders!'
 
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     provided("org.funktionale:funktionale-all:1.0.0-final") {
         exclude group: "org.jetbrains.kotlin"

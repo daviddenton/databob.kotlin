@@ -2,8 +2,7 @@ package io.github.databob
 
 import kotlin.reflect.KClass
 import kotlin.reflect.KParameter
-import kotlin.reflect.full.defaultType
-import kotlin.reflect.jvm.javaType
+import kotlin.reflect.full.createType
 
 class Databob(vararg overrides: Generator) {
     private val defaults = listOf(
@@ -22,7 +21,9 @@ class Databob(vararg overrides: Generator) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <R : Any> mk(c: KClass<R>): R = (generator.mk(c.defaultType.javaType, this) ?: fallback(c)) as R
+    fun <R : Any> mk(c: KClass<R>): R {
+        return (generator.mk(c.createType(), this) ?: fallback(c)) as R
+    }
 
     private fun <R : Any> fallback(c: KClass<R>): R {
         val constructor = c.constructors.iterator().next()
@@ -41,5 +42,5 @@ class Databob(vararg overrides: Generator) {
         return constructor.call(*generatedParameters.toTypedArray())
     }
 
-    private fun convert(it: KParameter) = generator.mk(it.type.javaType, this) ?: mk(Class.forName(it.type.toString().replace("?", "")).kotlin)
+    private fun convert(it: KParameter) = generator.mk(it.type, this) ?: mk(Class.forName(it.type.toString().replace("?", "")).kotlin)
 }

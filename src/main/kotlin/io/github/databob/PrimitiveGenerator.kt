@@ -1,9 +1,11 @@
 package io.github.databob
 
-import java.lang.reflect.Type
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.util.*
+import java.util.Random
+import java.util.UUID
+import kotlin.reflect.KType
+import kotlin.reflect.jvm.javaType
 
 class PrimitiveGenerator : Generator {
 
@@ -39,5 +41,5 @@ class PrimitiveGenerator : Generator {
         "java.math.BigDecimal" to { d -> BigDecimal.valueOf(d.mk<Double>()) }
     )
 
-    override fun mk(type: Type, databob: Databob): Any? = lookup[type.typeName]?.invoke(databob)
+    override fun mk(type: KType, databob: Databob): Any? = lookup[type.javaType.typeName]?.invoke(databob)
 }
