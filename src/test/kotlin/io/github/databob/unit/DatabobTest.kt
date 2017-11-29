@@ -4,7 +4,7 @@ import io.github.databob.CoinToss
 import io.github.databob.Databob
 import io.github.databob.Generators
 import org.funktionale.either.Either
-import org.funktionale.option.Option
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import java.io.File
 import java.io.PrintStream
@@ -24,8 +24,8 @@ import java.time.Period
 import java.time.Year
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.*
-import java.util.stream.Stream
+import java.util.Date
+import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -96,157 +96,116 @@ class DatabobTest {
     @Test
     fun support_list() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<ListContainer>()
-        assertTrue(mk is ListContainer)
-        assertTrue(mk.contents is List)
         assertTrue(mk.contents.isNotEmpty())
-        assertTrue(mk.contents[0] is Container)
     }
 
     @Test
     fun support_list_of_strings() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<StringListContainer>()
-        assertTrue(mk is StringListContainer)
-        assertTrue(mk.contents is List)
         assertTrue(mk.contents.isNotEmpty())
-        assertTrue(mk.contents.iterator().next() is String)
     }
 
     @Test
     fun support_stream() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<StreamContainer>()
-        assertTrue(mk is StreamContainer)
-        assertTrue(mk.contents is Stream)
         assertTrue(mk.contents.iterator().next() is String)
     }
 
     @Test
     fun support_vector() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<VectorContainer>()
-        assertTrue(mk is VectorContainer)
-        assertTrue(mk.contents is Vector)
         assertTrue(mk.contents.iterator().next() is String)
     }
 
     @Test
     fun support_set() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<SetContainer>()
-        assertTrue(mk is SetContainer)
-        assertTrue(mk.contents is Set)
-        assertTrue(mk.contents.iterator().next() is String)
+        assertNotNull(mk.contents.iterator().next())
     }
 
     @Test
     fun support_map() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<MapContainer>()
-        assertTrue(mk is MapContainer)
-        assertTrue(mk.contents is Map)
+        val mk: MapContainer = Databob(CoinToss.generators.alwaysHeads).mk()
         assertTrue(mk.contents.isNotEmpty())
-        assertTrue(mk.contents.entries.iterator().next().key is String)
-        assertTrue(mk.contents.entries.iterator().next().value is Container)
     }
 
     @Test
     fun support_interface() {
-        val mk = Databob(interfaceGenerator).mk<AnInterface>()
-        assertTrue(mk is AnInterface)
+        val mk: AnInterface = Databob(interfaceGenerator).mk()
+        assertNotNull(mk)
     }
 
     @Test
     fun support_enum() {
-        val mk = Databob().mk<AnEnum>()
-        assertTrue(mk is AnEnum)
+        val mk: AnEnum = Databob().mk()
+        assertNotNull(mk)
     }
 
     @Test
     fun support_nested_interfaces() {
-        val mk = Databob(interfaceGenerator).mk<InterfaceContainer>()
-
-        assertTrue(mk is InterfaceContainer)
-        assertTrue(mk.contents is AnInterface)
+        val mk: InterfaceContainer = Databob(interfaceGenerator).mk()
+        assertNotNull(mk)
     }
 
     @Test
     fun support_nested_data_classses() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<Container>()
-
-        assertTrue(mk.v is IntAndString)
-        assertTrue(mk.v.s is String)
-        assertTrue(mk.v.num is Int)
+        val mk: Container = Databob(CoinToss.generators.alwaysHeads).mk()
+        assertNotNull(mk)
     }
 
     @Test
     fun support_nullable_lists() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<NullableListContainer>()
-
-        assertTrue(mk is NullableListContainer)
+        val mk: NullableListContainer = Databob(CoinToss.generators.alwaysHeads).mk()
         assertTrue(mk.s is List<String>)
     }
 
     @Test
     fun support_nullable_containers() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<NullableContainer>()
-        assertTrue(mk is NullableContainer)
+        val mk: NullableContainer = Databob(CoinToss.generators.alwaysHeads).mk()
         assertTrue(mk.s is IntAndString)
     }
 
     @Test
     fun support_nullable_primitives() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<NullablePrimitiveContainer>()
+        val mk: NullablePrimitiveContainer = Databob(CoinToss.generators.alwaysHeads).mk()
 
-        assertTrue(mk is NullablePrimitiveContainer)
         assertTrue(mk.s is String)
     }
 
     @Test
     fun support_nullable_interfaces() {
-        val mk = Databob(CoinToss.generators.alwaysHeads, interfaceGenerator).mk<NullableInterfaceContainer>()
-
-        assertTrue(mk is NullableInterfaceContainer)
+        val mk: NullableInterfaceContainer = Databob(CoinToss.generators.alwaysHeads, interfaceGenerator).mk()
         assertTrue(mk.s is AnInterface)
     }
 
     @Test
     fun support_nullable_enums() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<NullableEnumContainer>()
+        val mk: NullableEnumContainer = Databob(CoinToss.generators.alwaysHeads).mk()
 
-        assertTrue(mk is NullableEnumContainer)
         assertTrue(mk.s is AnEnum)
     }
 
     @Test
     fun support_funktionale_option_happy() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<FunktionaleOption>()
-        assertTrue(mk is FunktionaleOption)
-        assertTrue(mk.v is Option<IntAndString>)
-        assertTrue(mk.v.get().s is String)
+        val mk: FunktionaleOption = Databob(CoinToss.generators.alwaysHeads).mk()
+        assertNotNull(mk)
     }
 
     @Test
     fun support_funktionale_option_sad() {
-        val mk = Databob(CoinToss.generators.alwaysTails).mk<FunktionaleOption>()
-        assertTrue(mk is FunktionaleOption)
-        assertTrue(mk.v is Option<IntAndString>)
+        val mk: FunktionaleOption = Databob(CoinToss.generators.alwaysTails).mk()
         assertEquals(mk.v.isEmpty(), true)
     }
 
     @Test
     fun support_funktionale_either_happy() {
-        val mk = Databob(CoinToss.generators.alwaysHeads).mk<FunktionaleEither>()
-        assertTrue(mk is FunktionaleEither)
+        val mk: FunktionaleEither = Databob(CoinToss.generators.alwaysHeads).mk()
         assertTrue(mk.v is Either.Right<IntAndString, Container>)
-        assertTrue(mk.v.right().get() is Container)
-        assertTrue(mk.v.right().get().v is IntAndString)
-        assertTrue(mk.v.right().get().v.num is Int)
-        assertTrue(mk.v.right().get().v.s is String)
     }
 
     @Test
     fun support_funktionale_either_sad() {
-        val mk = Databob(CoinToss.generators.alwaysTails).mk<FunktionaleEither>()
-        assertTrue(mk is FunktionaleEither)
+        val mk: FunktionaleEither = Databob(CoinToss.generators.alwaysTails).mk()
         assertTrue(mk.v is Either.Left<IntAndString, Container>)
-        assertTrue(mk.v.left().get() is IntAndString)
-        assertTrue(mk.v.left().get().num is Int)
-        assertTrue(mk.v.left().get().s is String)
     }
 }
