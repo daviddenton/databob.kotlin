@@ -3,22 +3,23 @@ package io.github.databob
 import java.lang.reflect.Type
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.util.*
+import java.util.Random
+import java.util.UUID
 
 class PrimitiveGenerator : Generator {
 
     private val lookup: Map<String, (Databob) -> Any> = mapOf(
-        "string" to { d -> UUID.randomUUID().toString() },
-        "java.lang.String" to { d -> UUID.randomUUID().toString() },
+        "string" to { _ -> UUID.randomUUID().toString() },
+        "java.lang.String" to { _ -> UUID.randomUUID().toString() },
 
-        "short" to { d -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
-        "java.lang.Short" to { d -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
+        "short" to { _ -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
+        "java.lang.Short" to { _ -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
 
-        "char" to { d -> Random().nextInt(256).toChar() },
-        "java.lang.Character" to { d -> Random().nextInt(256).toChar() },
+        "char" to { _ -> Random().nextInt(256).toChar() },
+        "java.lang.Character" to { _ -> Random().nextInt(256).toChar() },
 
-        "double" to { d -> Random().nextDouble() * Int.MAX_VALUE },
-        "java.lang.Double" to { d -> Random().nextDouble() * Int.MAX_VALUE },
+        "double" to { _ -> Random().nextDouble() * Int.MAX_VALUE },
+        "java.lang.Double" to { _ -> Random().nextDouble() * Int.MAX_VALUE },
 
         "boolean" to { d -> d.mk<CoinToss>().toss() },
         "java.lang.Boolean" to { d -> d.mk<CoinToss>().toss() },
