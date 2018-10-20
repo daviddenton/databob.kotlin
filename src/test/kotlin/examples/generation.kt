@@ -3,7 +3,6 @@ package examples
 import io.github.databob.CollectionSizeRange
 import io.github.databob.Databob
 import io.github.databob.Generators
-import org.funktionale.option.Option
 import java.time.ZonedDateTime
 
 
@@ -11,7 +10,7 @@ data class ReadReceipt(val readDate: ZonedDateTime)
 
 data class EmailAddress(val value: String)
 
-data class Email(val from: EmailAddress, val to: List<EmailAddress>, val date: ZonedDateTime, val read: Boolean, val subject: String, val readReceipt: Option<ReadReceipt>)
+data class Email(val from: EmailAddress, val to: List<EmailAddress>, val date: ZonedDateTime, val read: Boolean, val subject: String, val readReceipt: ReadReceipt?)
 
 data class Inbox(val address: EmailAddress, val emails: List<Email>)
 
