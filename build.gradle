@@ -57,6 +57,18 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 publishing {
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/daviddenton/databob.kotlin")
+            credentials {
+                username = "daviddenton"
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+
     publications {
         mavenJava(MavenPublication) {
             artifactId = archivesBaseName
