@@ -7,8 +7,6 @@ lib/
 *.ipr
 *.iws
 
-gradle.properties
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
