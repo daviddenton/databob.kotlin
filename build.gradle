@@ -64,7 +64,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/daviddenton/databob.kotlin")
             credentials {
                 username = "daviddenton"
-                password = System.getenv("GH_TOKEN")
+                password = System.getenv("GH_PACKAGES_TOKEN")
             }
         }
     }
