@@ -74,6 +74,16 @@ publishing {
     }
 
     publications {
+        def readmeFile = file("$buildDir/../README.md")
+        def readmeArtifact = artifacts.add('archives', readmeFile) {
+            type 'readme'
+            builtBy 'maven'
+        }
+
+        maven(MavenPublication) {
+            artifact readmeArtifact
+        }
+
         mavenJava(MavenPublication) {
             artifactId = archivesBaseName
 
