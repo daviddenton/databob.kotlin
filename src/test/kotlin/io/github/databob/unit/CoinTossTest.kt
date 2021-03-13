@@ -2,7 +2,7 @@ package io.github.databob.unit
 
 import io.github.databob.CoinToss
 import io.github.databob.Databob
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.reflect.full.defaultType
 import kotlin.reflect.jvm.javaType
 import kotlin.test.assertTrue

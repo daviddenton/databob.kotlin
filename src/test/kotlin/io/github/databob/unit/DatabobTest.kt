@@ -3,8 +3,7 @@ package io.github.databob.unit
 import io.github.databob.CoinToss
 import io.github.databob.Databob
 import io.github.databob.Generators
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.PrintStream
 import java.io.Reader
@@ -25,6 +24,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.Date
 import java.util.UUID
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class DatabobTest {
@@ -34,6 +34,7 @@ class DatabobTest {
     private val interfaceGenerator = Generators.ofType<AnInterface> { -> AnInterfaceImpl() }
 
     data class Bob(val date: LocalDateTime)
+
     @Test
     fun `bob`() {
         Databob().mk<Bob>()

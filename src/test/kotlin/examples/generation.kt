@@ -10,14 +10,21 @@ data class ReadReceipt(val readDate: ZonedDateTime)
 
 data class EmailAddress(val value: String)
 
-data class Email(val from: EmailAddress, val to: List<EmailAddress>, val date: ZonedDateTime, val read: Boolean, val subject: String, val readReceipt: ReadReceipt?)
+data class Email(
+    val from: EmailAddress,
+    val to: List<EmailAddress>,
+    val date: ZonedDateTime,
+    val read: Boolean,
+    val subject: String,
+    val readReceipt: ReadReceipt?
+)
 
 data class Inbox(val address: EmailAddress, val emails: List<Email>)
 
 /**
  * This set of examples shows how you can use Databob to generate objects
  */
-fun main(args: Array<String>) {
+fun main() {
     fun completelyRandomObject() = Databob().mk<Email>()
 
     println(completelyRandomObject())
@@ -30,11 +37,9 @@ fun main(args: Array<String>) {
 
     println(objectWithCustomCollectionSizes())
 
-    fun usingACustomGenerator(): Email {
-        return Databob(
-            Generators.ofType { databob -> EmailAddress(Databob().mk<String>() + "@" + Databob().mk<String>() + ".com") }
-        ).mk<Email>()
-    }
+    fun usingACustomGenerator(): Email = Databob(
+        Generators.ofType { databob -> EmailAddress(Databob().mk<String>() + "@" + Databob().mk<String>() + ".com") }
+    ).mk()
 
     println(usingACustomGenerator())
 }

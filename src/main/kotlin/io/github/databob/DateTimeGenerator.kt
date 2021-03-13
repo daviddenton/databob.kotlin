@@ -10,7 +10,7 @@ import java.time.Period
 import java.time.Year
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.*
+import java.util.Date
 
 class DateTimeGenerator : Generator {
 
@@ -23,12 +23,12 @@ class DateTimeGenerator : Generator {
             Generators.ofType { d -> Year.of(d.mk<LocalDateTime>().year) },
             Generators.ofType { d -> d.mk<LocalDateTime>().dayOfWeek },
             Generators.ofType { d -> d.mk<LocalDateTime>().month },
-            Generators.ofType { d -> LocalDateTime.of(d.mk<LocalDate>(), d.mk<LocalTime>()) },
-            Generators.ofType { d -> ZonedDateTime.of(d.mk<LocalDateTime>(), d.mk<ZoneId>()) },
+            Generators.ofType { d -> LocalDateTime.of(d.mk(), d.mk()) },
+            Generators.ofType { d -> ZonedDateTime.of(d.mk(), d.mk()) },
             Generators.ofType { d -> java.sql.Date(d.mk<Date>().time) },
             Generators.ofType { d -> Timestamp.valueOf(d.mk<LocalDateTime>()) },
-            Generators.ofType { d -> Duration.ofMillis(d.mk<Long>()) },
-            Generators.ofType { d -> Period.between(d.mk<LocalDate>(), d.mk<LocalDate>()) }
+            Generators.ofType { d -> Duration.ofMillis(d.mk()) },
+            Generators.ofType { d -> Period.between(d.mk(), d.mk()) }
         )
 
         val random = CompositeGenerator(
@@ -55,12 +55,12 @@ class DateTimeGenerator : Generator {
         Generators.ofType { d -> Date(d.mk<Long>()) },
         Generators.ofType { d -> LocalTime.ofNanoOfDay(d.mk<Int>().toLong()) },
         Generators.ofType { d -> LocalDate.ofEpochDay(d.mk<Short>().toLong()) },
-        Generators.ofType { d -> LocalDateTime.of(d.mk<LocalDate>(), d.mk<LocalTime>()) },
-        Generators.ofType { d -> ZonedDateTime.of(d.mk<LocalDateTime>(), d.mk<ZoneId>()) },
+        Generators.ofType { d -> LocalDateTime.of(d.mk(), d.mk()) },
+        Generators.ofType { d -> ZonedDateTime.of(d.mk(), d.mk()) },
         Generators.ofType { d -> java.sql.Date(d.mk<Date>().time) },
         Generators.ofType { d -> Timestamp.valueOf(d.mk<LocalDateTime>()) },
-        Generators.ofType { d -> Duration.ofMillis(d.mk<Long>()) },
-        Generators.ofType { d -> Period.between(d.mk<LocalDate>(), d.mk<LocalDate>()) }
+        Generators.ofType { d -> Duration.ofMillis(d.mk()) },
+        Generators.ofType { d -> Period.between(d.mk(), d.mk()) }
     )
 
     override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)

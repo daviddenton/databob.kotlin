@@ -4,9 +4,9 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.isWithin
 import io.github.databob.CollectionSizeRange
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import kotlin.test.assertFails
-import kotlin.test.assertTrue
 
 class CollectionSizeRangeTest {
 

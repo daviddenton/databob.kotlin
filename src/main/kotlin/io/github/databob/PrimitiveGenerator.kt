@@ -9,17 +9,17 @@ import java.util.UUID
 class PrimitiveGenerator : Generator {
 
     private val lookup: Map<String, (Databob) -> Any> = mapOf(
-        "string" to { _ -> UUID.randomUUID().toString() },
-        "java.lang.String" to { _ -> UUID.randomUUID().toString() },
+        "string" to { UUID.randomUUID().toString() },
+        "java.lang.String" to { UUID.randomUUID().toString() },
 
-        "short" to { _ -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
-        "java.lang.Short" to { _ -> Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
+        "short" to { Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
+        "java.lang.Short" to { Random().nextInt(Short.MAX_VALUE.toInt()).toShort() },
 
-        "char" to { _ -> Random().nextInt(256).toChar() },
-        "java.lang.Character" to { _ -> Random().nextInt(256).toChar() },
+        "char" to { Random().nextInt(256).toChar() },
+        "java.lang.Character" to { Random().nextInt(256).toChar() },
 
-        "double" to { _ -> Random().nextDouble() * Int.MAX_VALUE },
-        "java.lang.Double" to { _ -> Random().nextDouble() * Int.MAX_VALUE },
+        "double" to { Random().nextDouble() * Int.MAX_VALUE },
+        "java.lang.Double" to { Random().nextDouble() * Int.MAX_VALUE },
 
         "boolean" to { d -> d.mk<CoinToss>().toss() },
         "java.lang.Boolean" to { d -> d.mk<CoinToss>().toss() },
