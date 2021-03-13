@@ -1,13 +1,7 @@
 package io.github.databob.unit
 
-import org.funktionale.either.Either
-import org.funktionale.option.Option
-import java.util.*
+import java.util.Vector
 import java.util.stream.Stream
-
-data class FunktionaleOption(val v: Option<IntAndString>)
-
-data class FunktionaleEither(val v: Either<IntAndString, Container>)
 
 data class Container(val v: IntAndString)
 

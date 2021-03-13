@@ -3,7 +3,6 @@ package io.github.databob.unit
 import io.github.databob.CoinToss
 import io.github.databob.Databob
 import io.github.databob.Generators
-import org.funktionale.either.Either
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import java.io.File
@@ -26,7 +25,6 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.Date
 import java.util.UUID
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class DatabobTest {
@@ -183,29 +181,5 @@ class DatabobTest {
         val mk: NullableEnumContainer = Databob(CoinToss.generators.alwaysHeads).mk()
 
         assertTrue(mk.s is AnEnum)
-    }
-
-    @Test
-    fun support_funktionale_option_happy() {
-        val mk: FunktionaleOption = Databob(CoinToss.generators.alwaysHeads).mk()
-        assertNotNull(mk)
-    }
-
-    @Test
-    fun support_funktionale_option_sad() {
-        val mk: FunktionaleOption = Databob(CoinToss.generators.alwaysTails).mk()
-        assertEquals(mk.v.isEmpty(), true)
-    }
-
-    @Test
-    fun support_funktionale_either_happy() {
-        val mk: FunktionaleEither = Databob(CoinToss.generators.alwaysHeads).mk()
-        assertTrue(mk.v is Either.Right<IntAndString, Container>)
-    }
-
-    @Test
-    fun support_funktionale_either_sad() {
-        val mk: FunktionaleEither = Databob(CoinToss.generators.alwaysTails).mk()
-        assertTrue(mk.v is Either.Left<IntAndString, Container>)
     }
 }
