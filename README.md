@@ -1,8 +1,8 @@
 # databob.kotlin
 
 [![coverage](https://coveralls.io/repos/daviddenton/databob.kotlin/badge.svg?branch=master)](https://coveralls.io/github/daviddenton/databob.kotlin?branch=master)
-[![kotlin](https://img.shields.io/badge/kotlin-1.1.1-blue.svg)](http://kotlinlang.org)
-[![build status](https://travis-ci.org/daviddenton/databob.kotlin.svg?branch=master)](https://travis-ci.org/daviddenton/databob.kotlin)
+[![kotlin](https://img.shields.io/badge/kotlin-1.4-blue.svg)](http://kotlinlang.org)
+[![.github/workflows/build.yaml](https://github.com/daviddenton/databob.kotlin/actions/workflows/build.yaml/badge.svg)](https://github.com/daviddenton/databob.kotlin/actions/workflows/build.yaml)
 [![bintray version](https://api.bintray.com/packages/daviddenton/maven/databob.kotlin/images/download.svg)](https://bintray.com/daviddenton/maven/databob.kotlin/_latestVersion)
 
 ##### (Also available in [Scala](https://github.com/daviddenton/databob.scala) and [JavaScript](https://github.com/daviddenton/databob) flavours)
