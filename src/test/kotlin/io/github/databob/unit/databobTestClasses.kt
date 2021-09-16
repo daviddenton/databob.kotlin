@@ -11,6 +11,8 @@ data class InterfaceContainer(val contents: AnInterface)
 
 data class ListContainer(val contents: List<Container>)
 
+data class CollectionContainer(val contents: Collection<Container>)
+
 data class StringListContainer(val contents: List<String>)
 
 data class SetContainer(val contents: Set<String>)

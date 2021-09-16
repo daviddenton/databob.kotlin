@@ -99,6 +99,12 @@ class DatabobTest {
     }
 
     @Test
+    fun support_collection() {
+        val mk = Databob(CoinToss.generators.alwaysHeads).mk<CollectionContainer>()
+        assertTrue(mk.contents.isNotEmpty())
+    }
+
+    @Test
     fun support_list_of_strings() {
         val mk = Databob(CoinToss.generators.alwaysHeads).mk<StringListContainer>()
         assertTrue(mk.contents.isNotEmpty())

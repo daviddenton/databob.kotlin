@@ -39,8 +39,9 @@ class CollectionGenerator : Generator {
         Generators.ofType { t, d -> listOf(*construct(d) { ctr(d, t[0]) }) },
         Generators.ofType { t, d -> Vector(listOf(*construct(d) { ctr(d, t[0]) })) },
         Generators.ofType { t, d -> Stream.of(*construct(d) { ctr(d, t[0]) }) },
-        Generators.ofType { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) }
-    )
+        Generators.ofType { t, d -> mapOf(*construct(d) { Pair(ctr(d, t[0]), ctr(d, t[1])) }) },
+        Generators.ofType<Collection<*>> { t, d -> listOf(*construct(d) { ctr(d, t[0]) }) },
+        )
 
     override fun mk(type: Type, databob: Databob): Any? = generator.mk(type, databob)
 }
