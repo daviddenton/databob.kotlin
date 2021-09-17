@@ -1,3 +1,5 @@
+# NOTE: Post the JCenter shutdown, Databob is now not maintained and it's likely that no new versions will be published. However, there is a natural successor to Databob with effectively the same API: (fabrikate4k)[https://github.com/fork-handles/forkhandles/tree/trunk/fabrikate4k]
+
 # databob.kotlin
 
 [![coverage](https://coveralls.io/repos/daviddenton/databob.kotlin/badge.svg?branch=master)](https://coveralls.io/github/daviddenton/databob.kotlin?branch=master)
